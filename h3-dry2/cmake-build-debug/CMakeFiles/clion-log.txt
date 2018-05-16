@@ -1,0 +1,4 @@
+"C:\Program Files\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=C:/MinGW/bin/gcc.exe -DCMAKE_CXX_COMPILER=C:/MinGW/bin/c++.exe -G "CodeBlocks - MinGW Makefiles" C:\Users\shani\CLionProjects\h3-dry2
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/shani/CLionProjects/h3-dry2/cmake-build-debug
