@@ -40,7 +40,7 @@ int main() {
     }
 
     destroyList(new_list);
-    for(int i =0; i<6; i++){
+    for(int i =0; i<3; i++){
         destroyList(lists[i]);
     }
 
@@ -81,15 +81,14 @@ bool isEven(int n){
 }
 
 void destroyList(Node list){
-    Node ptr = list;
-    while(ptr){
-        Node toDelete = ptr;
-        ptr = ptr->next;
+    while(list){
+        Node toDelete = list;
+        list = list->next;
         free(toDelete);
     }
 }
 
-Node listCreate(int arr[], int len){
+Node listCreate(int* arr, int len){
     Node list = NULL, prev = NULL;
     for(int i=0; i<len; i++){
         Node node = malloc(sizeof(*node));
