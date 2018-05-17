@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.9)
-project(hw3_wet1 C)
+project(MAP C)
 
 set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_FLAGS "-std=c99 -Wall -Werror -pedantic-errors -DNDEBUG")
 
-add_executable(hw3_wet1 main.c map_mtm.c map_mtm.h)
+add_executable(MAP main.c map_mtm.c test_utilities.h)

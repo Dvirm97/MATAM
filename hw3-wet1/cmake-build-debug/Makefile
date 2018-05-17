@@ -55,17 +55,6 @@ CMAKE_BINARY_DIR = C:\Users\shani\CLionProjects\hw3-wet1\cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -76,6 +65,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	"C:\Program Files\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -110,17 +110,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named hw3_wet1
+# Target rules for targets named MAP
 
 # Build rule for target.
-hw3_wet1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 hw3_wet1
-.PHONY : hw3_wet1
+MAP: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 MAP
+.PHONY : MAP
 
 # fast build rule for target.
-hw3_wet1/fast:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/build
-.PHONY : hw3_wet1/fast
+MAP/fast:
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/build
+.PHONY : MAP/fast
 
 main.obj: main.c.obj
 
@@ -128,7 +128,7 @@ main.obj: main.c.obj
 
 # target to build an object file
 main.c.obj:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/main.c.obj
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/main.c.obj
 .PHONY : main.c.obj
 
 main.i: main.c.i
@@ -137,7 +137,7 @@ main.i: main.c.i
 
 # target to preprocess a source file
 main.c.i:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/main.c.i
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/main.c.i
 .PHONY : main.c.i
 
 main.s: main.c.s
@@ -146,7 +146,7 @@ main.s: main.c.s
 
 # target to generate assembly for a file
 main.c.s:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/main.c.s
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/main.c.s
 .PHONY : main.c.s
 
 map_mtm.obj: map_mtm.c.obj
@@ -155,7 +155,7 @@ map_mtm.obj: map_mtm.c.obj
 
 # target to build an object file
 map_mtm.c.obj:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/map_mtm.c.obj
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/map_mtm.c.obj
 .PHONY : map_mtm.c.obj
 
 map_mtm.i: map_mtm.c.i
@@ -164,7 +164,7 @@ map_mtm.i: map_mtm.c.i
 
 # target to preprocess a source file
 map_mtm.c.i:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/map_mtm.c.i
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/map_mtm.c.i
 .PHONY : map_mtm.c.i
 
 map_mtm.s: map_mtm.c.s
@@ -173,7 +173,7 @@ map_mtm.s: map_mtm.c.s
 
 # target to generate assembly for a file
 map_mtm.c.s:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/map_mtm.c.s
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/map_mtm.c.s
 .PHONY : map_mtm.c.s
 
 # Help Target
@@ -182,9 +182,9 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... rebuild_cache
-	@echo ... hw3_wet1
+	@echo ... MAP
 	@echo ... edit_cache
+	@echo ... rebuild_cache
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

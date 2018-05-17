@@ -59,39 +59,39 @@ CMAKE_SOURCE_DIR = C:\Users\shani\CLionProjects\hw3-wet1
 CMAKE_BINARY_DIR = C:\Users\shani\CLionProjects\hw3-wet1\cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/hw3_wet1.dir
+# Target rules for target CMakeFiles/MAP.dir
 
 # All Build rule for target.
-CMakeFiles/hw3_wet1.dir/all:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/depend
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\shani\CLionProjects\hw3-wet1\cmake-build-debug\CMakeFiles --progress-num=1,2,3 "Built target hw3_wet1"
-.PHONY : CMakeFiles/hw3_wet1.dir/all
+CMakeFiles/MAP.dir/all:
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/depend
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\shani\CLionProjects\hw3-wet1\cmake-build-debug\CMakeFiles --progress-num=1,2,3 "Built target MAP"
+.PHONY : CMakeFiles/MAP.dir/all
 
 # Include target in all.
-all: CMakeFiles/hw3_wet1.dir/all
+all: CMakeFiles/MAP.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/hw3_wet1.dir/rule: cmake_check_build_system
+CMakeFiles/MAP.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\shani\CLionProjects\hw3-wet1\cmake-build-debug\CMakeFiles 3
-	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/hw3_wet1.dir/all
+	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/MAP.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\shani\CLionProjects\hw3-wet1\cmake-build-debug\CMakeFiles 0
-.PHONY : CMakeFiles/hw3_wet1.dir/rule
+.PHONY : CMakeFiles/MAP.dir/rule
 
 # Convenience name for target.
-hw3_wet1: CMakeFiles/hw3_wet1.dir/rule
+MAP: CMakeFiles/MAP.dir/rule
 
-.PHONY : hw3_wet1
-
-# clean rule for target.
-CMakeFiles/hw3_wet1.dir/clean:
-	$(MAKE) -f CMakeFiles\hw3_wet1.dir\build.make CMakeFiles/hw3_wet1.dir/clean
-.PHONY : CMakeFiles/hw3_wet1.dir/clean
+.PHONY : MAP
 
 # clean rule for target.
-clean: CMakeFiles/hw3_wet1.dir/clean
+CMakeFiles/MAP.dir/clean:
+	$(MAKE) -f CMakeFiles\MAP.dir\build.make CMakeFiles/MAP.dir/clean
+.PHONY : CMakeFiles/MAP.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/MAP.dir/clean
 
 .PHONY : clean
 

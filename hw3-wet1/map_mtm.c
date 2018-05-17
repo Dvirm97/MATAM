@@ -1,8 +1,3 @@
-//
-// Created by shani on 16/05/2018.
-//
-#define INITIAL_SIZE 1
-#define INVALID -1
 #include "map_mtm.h"
 #include <stdlib.h>
 
@@ -26,13 +21,15 @@ struct Map_t{
     int (*compareKeys)(MapKeyElement, MapKeyElement);
 };
 
-static int find(Map map, MapKeyElement key);
-
 Map mapCreate(copyMapDataElements copyDataElement, copyMapKeyElements copyKeyElement,
               freeMapDataElements freeDataElement, freeMapKeyElements freeKeyElement,
               compareMapKeyElements compareKeyElements){
+    if(!copyDataElement || !copyKeyElement ||!compareKeyElements ||
+            !freeDataElement || !freeKeyElement) return NULL;
+
     Map map = malloc(sizeof(*map));
     if(!map) return NULL;
+
 
     map->iterator = NULL;
     map->pairs_list = NULL;
@@ -55,10 +52,15 @@ void mapDestroy(Map map){
     free(map);
 }
 Map mapCopy(Map map){
+    if(!map) return NULL;
     Map new_map = mapCreate(map->copyData, map->copyKey, map->freeData,
                             map->freeKey, map->compareKeys);
     Node ptr = map->pairs_list;
     while(ptr){
+        if(!ptr->pair) {
+            mapDestroy(new_map);
+            return NULL;
+        }
         mapPut(new_map, ptr->pair->key, ptr->pair->data);
         ptr = ptr->next;
     }
@@ -87,7 +89,7 @@ bool mapContains(Map map, MapKeyElement element){
     return false;
 }
 MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement){
-    if(!map || !keyElement) return MAP_NULL_ARGUMENT;
+    if(!map || !keyElement || !dataElement) return MAP_NULL_ARGUMENT;
     Node ptr = map->pairs_list;
     while(ptr){
         if(!map->compareKeys || !ptr->pair || !ptr->pair->key)
@@ -118,10 +120,20 @@ MapResult mapPut(Map map, MapKeyElement keyElement, MapDataElement dataElement){
     }
     else {
         ptr = map->pairs_list;
-        while (ptr->next) {
+        Node prev = NULL;
+        if(!ptr->pair) return MAP_NULL_ARGUMENT;
+        while (ptr != NULL && (map->compareKeys(ptr->pair->key, new_node->pair->key) < 0)) {
+            prev = ptr;
             ptr = ptr->next;
+            if(ptr && !ptr->pair) return MAP_NULL_ARGUMENT;
         }
-        ptr->next = new_node;
+        new_node->next = ptr;
+        if(prev != NULL){
+            prev->next = new_node;
+        }
+        else{
+            map->pairs_list = new_node;
+        }
     }
     return MAP_SUCCESS;
 }
@@ -143,19 +155,19 @@ MapResult mapRemove(Map map, MapKeyElement keyElement){
 
     Node ptr = map->pairs_list->next, prev = map->pairs_list;
 
-    if(!map->compareKeys || !ptr->pair || !ptr->pair->key)
+    if(!map->compareKeys || !map->freeData || !map->freeKey || !prev->pair)
         return MAP_NULL_ARGUMENT;
 
     if(map->compareKeys(prev->pair->key, keyElement) == 0) {
         map->pairs_list = ptr;
         map->freeKey(prev->pair->key);
         map->freeData(prev->pair->data);
-        free(prev);
         return MAP_SUCCESS;
     }
 
+
     while(ptr){
-        if(!map->compareKeys || !ptr->pair || !ptr->pair->key)
+        if(!ptr->pair)
             return MAP_NULL_ARGUMENT;
 
         if(map->compareKeys(ptr->pair->key, keyElement) == 0){
@@ -178,8 +190,9 @@ MapKeyElement mapGetFirst(Map map) {
     return map->iterator->pair->key;
 }
 MapKeyElement mapGetNext(Map map){
-    if(!map || !map->iterator) return NULL;
+    if(!map || !map->iterator || !map->iterator->pair) return NULL;
     map->iterator = map->iterator->next;
+    if(!map->iterator || !map->iterator->pair) return NULL;
     return map->iterator->pair->key;
 }
 MapResult mapClear(Map map){
