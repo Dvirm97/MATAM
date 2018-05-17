@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/shani/CLionProjects/hw3-wet1/main.c
+stdio.h
+-
+map_mtm.h
+C:/Users/shani/CLionProjects/hw3-wet1/map_mtm.h
+string.h
+-
+stdlib.h
+-
+
+C:/Users/shani/CLionProjects/hw3-wet1/map_mtm.c
+map_mtm.h
+C:/Users/shani/CLionProjects/hw3-wet1/map_mtm.h
+stdlib.h
+-
+
+C:/Users/shani/CLionProjects/hw3-wet1/map_mtm.h
+stdbool.h
+-
+
