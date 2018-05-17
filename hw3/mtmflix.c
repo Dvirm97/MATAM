@@ -69,8 +69,6 @@ MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username) {
 static bool checkName(char* username) {
     if (!username)
         return false;
-    if (username == '\0')
-        return false;
     for (int i = 0; username[i] != '\0'; i++) {
         if (username[i] >= '0' && username[i] <= '9')
             return false;
