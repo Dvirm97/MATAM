@@ -41,3 +41,14 @@ void seriesDeleteName(MapKeyElement name) {
 int seriesCompareNames(MapKeyElement name1, MapKeyElement name2) {
     return strcmp((char*)name1, (char*)name2);
 }
+Series createSeries(const char* name, int episodesNum,
+                               Genre genre, int* ages, int episodesDuration) {
+    Series series = malloc(sizeof(series));
+    strcpy(series->name, name);
+    series->episodesNum = episodesNum;
+    series->genre = genre;
+    series->ages[0] = ages[0];
+    series->ages[1] = ages[1];
+    series->episodeDuration = episodesDuration;
+    return series;
+}
