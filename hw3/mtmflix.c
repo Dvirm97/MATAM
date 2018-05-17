@@ -46,7 +46,6 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
 
     user = mapGet(mtmflix->userList, newUsername); //remove
     printUser(user); //remove
-    free(user); //bad
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username) {
