@@ -38,10 +38,9 @@ void mtmFlixDestroy(MtmFlix mtmflix) {
     }
 }
 MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
-    //createUser
     char* newUsername = malloc(strlen(username));
     strcpy(newUsername, username);
-    User user = createUser(newUsername, age);
+    User user = createUser(username, age);
     mapPut(mtmflix->userList, newUsername, user);
 
     user = mapGet(mtmflix->userList, newUsername); //remove
@@ -73,4 +72,12 @@ static bool checkName(char* username) {
             return false;
     }
     return true;
+}
+MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name, int episodesNum,
+                               Genre genre, int* ages, int episodesDuration) {
+    Series series = createSeries(name, episodesNum, genre, ages, episodesDuration);
+    char* newName = malloc(strlen(name));
+    strcpy(newName, name);
+    mapPut(mtmflix->seriesList, newName, series);
+    return MTMFLIX_SUCCESS;
 }
