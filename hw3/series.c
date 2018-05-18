@@ -1,13 +1,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include "series.h"
+#include "mtm_ex3.h"
+
 
 struct series {
     char* name;
     int episodesNum;
-    char* genre;
-    int ages[2];
-    double episodeDuration;
+    Genre genre;
+    int* ages;
+    int episodeDuration;
 };
 
 MapDataElement copySeries(MapDataElement src) {
@@ -18,12 +20,18 @@ MapDataElement copySeries(MapDataElement src) {
     if (!dst) {
         return NULL;
     }
-    Series res = (Series)src; //doing this right?
+    Series res = (Series) src; //doing this right?
     strcpy(dst->name, res->name);//dunno if need another malloc for this
     dst->episodesNum = res->episodesNum;
-    strcpy(dst->genre, res->genre);
-    dst->ages[0] = res->ages[0];
-    dst->ages[1] = res->ages[1];
+    dst->genre = res->genre;
+    if (!(res->ages)) {
+        dst->ages = NULL;
+    }
+    else {
+        dst->ages = malloc(sizeof(int)*2);
+        dst->ages[0] = res->ages[0];
+        dst->ages[1] = res->ages[1];
+    }
     dst->episodeDuration = res->episodeDuration;
     return dst;
 }
@@ -47,8 +55,17 @@ Series createSeries(const char* name, int episodesNum,
     strcpy(series->name, name);
     series->episodesNum = episodesNum;
     series->genre = genre;
-    series->ages[0] = ages[0];
-    series->ages[1] = ages[1];
+    if (!ages) {
+        series->ages = NULL;
+    }
+    else {
+        series->ages = malloc(sizeof(int)*2);
+        series->ages[0] = ages[0];
+        series->ages[1] = ages[1];
+    }
     series->episodeDuration = episodesDuration;
     return series;
+}
+int* seriesGetAges(Series series) {
+    return series->ages;
 }
