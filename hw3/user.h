@@ -15,6 +15,8 @@ int userCompareNames(MapKeyElement name1, MapKeyElement name2);
 User createUser(const char* username, int age);
 MtmFlixResult userAddFavorite(User user, Series series);
 MtmFlixResult userRemoveFavorite(User user, Series series);
+MtmFlixResult userAddFriend(User user, User friend);
+MtmFlixResult userRemoveFriend(User user, User friend);
 
 void printUser(User user); //remove
 
