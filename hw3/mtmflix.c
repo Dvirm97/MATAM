@@ -137,3 +137,35 @@ MtmFlixResult mtmFlixSeriesLeave(MtmFlix mtmflix, const char* username,
     //STILL NEED TO FREE SHIT! (USER, SERIES, NAMES)
     return MTMFLIX_SUCCESS;
 }
+MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1,
+                               const char* username2) {
+    if (!mtmflix || !username1 || username2)
+        return MTMFLIX_NULL_ARGUMENT;
+    char* newUsername1 = malloc(strlen(username1));
+    strcpy(newUsername1, username1);
+    char* newUsername2 = malloc(strlen(username2));
+    strcpy(newUsername2, username2);
+    User ourUser = mapGet(mtmflix->userList, newUsername1);
+    User friend = mapGet(mtmflix->userList, newUsername2);
+    if (!ourUser || !friend)
+        return MTMFLIX_USER_DOES_NOT_EXIST;
+    userAddFriend(ourUser, friend);
+    mapPut(mtmflix->userList, newUsername1, ourUser);
+    return MTMFLIX_SUCCESS;
+}
+MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1,
+                               const char* username2) {
+    if (!mtmflix || !username1 || username2)
+        return MTMFLIX_NULL_ARGUMENT;
+    char* newUsername1 = malloc(strlen(username1));
+    strcpy(newUsername1, username1);
+    char* newUsername2 = malloc(strlen(username2));
+    strcpy(newUsername2, username2);
+    User ourUser = mapGet(mtmflix->userList, newUsername1);
+    User friend = mapGet(mtmflix->userList, newUsername2);
+    if (!ourUser || !friend)
+        return MTMFLIX_USER_DOES_NOT_EXIST;
+    userRemoveFriend(ourUser, friend);
+    mapPut(mtmflix->userList, newUsername1, ourUser);
+    return MTMFLIX_SUCCESS;
+}
