@@ -77,6 +77,18 @@ MtmFlixResult userRemoveFavorite(User user, Series series) {
     setRemove(user->favorites, series);
     return MTMFLIX_SUCCESS;
 }
+MtmFlixResult userAddFriend(User user, User friend) {
+    if (!user || !friend)
+        return MTMFLIX_NULL_ARGUMENT;
+    setAdd(user->friends, friend);
+    return MTMFLIX_SUCCESS;
+}
+MtmFlixResult userRemoveFriend(User user, User friend) {
+    if (!user || !friend)
+        return MTMFLIX_NULL_ARGUMENT;
+    setRemove(user->friends, friend);
+    return MTMFLIX_SUCCESS;
+}
 void printUser(User user) { //remove this function
     printf("%s\n%d", user->username, user->age);
 }
