@@ -2,12 +2,8 @@
 #include <string.h>
 #include "series.h"
 #include "mtm_ex3.h"
-<<<<<<< HEAD
 #define str(x) #x
 #define xstr(x) str(x)
-=======
-
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
 
 struct series {
     char* name;
@@ -54,12 +50,12 @@ void seriesDeleteName(MapKeyElement name) {
 int seriesCompareNames(MapKeyElement name1, MapKeyElement name2){
     return strcmp((char*)name1, (char*)name2);
 }
-<<<<<<< HEAD
+int seriesCompareNamesForSet(MapKeyElement series1, MapKeyElement series2) {
+    return strcmp(((Series)series1)->name, ((Series)series2)->name);
+}
 int seriesCompareGenres(Genre genre1, Genre genre2){
     return strcmp(xstr(genre1), xstr(genre2));
 }
-=======
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
 Series createSeries(const char* name, int episodesNum,
                                Genre genre, int* ages, int episodesDuration) {
     Series series = malloc(sizeof(series));
@@ -80,7 +76,6 @@ Series createSeries(const char* name, int episodesNum,
 int* seriesGetAges(Series series) {
     return series->ages;
 }
-<<<<<<< HEAD
 
 const char* printSeries(const char* series_name, Series series) {
     if(!series) return series_name;
@@ -90,5 +85,3 @@ const char* seriesGetGenre(Series series){
     if(!series) return NULL;
     return xstr(series->genre);
 }
-=======
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
