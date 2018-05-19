@@ -43,13 +43,10 @@ void mtmFlixDestroy(MtmFlix mtmflix) {
 MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
 <<<<<<< HEAD
     if(!mtmflix || !username) return MTMFLIX_NULL_ARGUMENT;
-=======
-
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
     char* newUsername = malloc(strlen(username));
     if(!newUsername) return MTMFLIX_OUT_OF_MEMORY;
     strcpy(newUsername, username);
-    User user = createUser(username, age);
+    User user = createUser(newUsername, age);
     mapPut(mtmflix->userList, newUsername, user);
     return MTMFLIX_SUCCESS;
 }
@@ -350,5 +347,4 @@ static char** sortMapKeys(Map map){
     names[names_num] = NULL;
     return names;
 }
-=======
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
+
