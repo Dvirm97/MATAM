@@ -25,7 +25,8 @@ MapDataElement copyUser(MapDataElement src) {
         return NULL;
     }
     User res = (User)src; //doing this right?
-    strcpy(dst->username, res->username); //dunno if need another malloc for this
+    dst->username = malloc(strlen(res->username)+1);
+    strcpy(dst->username, res->username);
     dst->age = res->age;
     dst->favorites = setCopy(res->favorites);
     dst->friends = setCopy(res->friends);
@@ -52,6 +53,7 @@ int userCompareNamesForSet(MapKeyElement user1, MapKeyElement user2) {
 }
 User createUser(const char* newUsername, int newAge) {
     User user = malloc(sizeof(user));
+    user->username = malloc(strlen(newUsername)+1);
     strcpy(user->username, newUsername);
     user->age = newAge;
     user->favorites = setCreate(copySeries, deleteSeries, seriesCompareNames);
