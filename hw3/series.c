@@ -22,7 +22,7 @@ MapDataElement copySeries(MapDataElement src) {
         return NULL;
     }
     Series res = (Series) src; //doing this right?
-    dst->name = malloc(strlen(res->name));
+    dst->name = malloc(strlen(res->name)+1);
     strcpy(dst->name, res->name);
     dst->episodesNum = res->episodesNum;
     dst->genre = res->genre;
@@ -60,7 +60,7 @@ int seriesCompareGenres(Genre genre1, Genre genre2){
 Series createSeries(const char* name, int episodesNum,
                                Genre genre, int* ages, int episodesDuration) {
     Series series = malloc(sizeof(series));
-    series->name = malloc(strlen(name));
+    series->name = malloc(strlen(name)+1);
     strcpy(series->name, name);
     series->episodesNum = episodesNum;
     series->genre = genre;
