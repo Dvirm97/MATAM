@@ -22,7 +22,8 @@ MapDataElement copySeries(MapDataElement src) {
         return NULL;
     }
     Series res = (Series) src; //doing this right?
-    strcpy(dst->name, res->name);//dunno if need another malloc for this
+    dst->name = malloc(strlen(res->name));
+    strcpy(dst->name, res->name);
     dst->episodesNum = res->episodesNum;
     dst->genre = res->genre;
     if (!(res->ages)) {
