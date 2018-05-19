@@ -47,6 +47,9 @@ void userDeleteName(MapKeyElement name) {
 int userCompareNames(MapKeyElement name1, MapKeyElement name2) {
     return strcmp((char*)name1, (char*)name2);
 }
+int userCompareNamesForSet(MapKeyElement user1, MapKeyElement user2) {
+    return strcmp(((User)user1)->username, ((User)user2)->username);
+}
 User createUser(const char* newUsername, int newAge) {
     User user = malloc(sizeof(user));
     strcpy(user->username, newUsername);
@@ -66,7 +69,6 @@ MtmFlixResult userAddFavorite(User user, Series series) {
     if (seriesAges)
         if (user->age < *seriesAges || user->age > *(seriesAges + 1))
             return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
-
     if (setAdd(user->favorites, series) == SET_OUT_OF_MEMORY)
         return MTMFLIX_OUT_OF_MEMORY;
     return MTMFLIX_SUCCESS;
@@ -89,13 +91,11 @@ MtmFlixResult userRemoveFriend(User user, User friend) {
     setRemove(user->friends, friend);
     return MTMFLIX_SUCCESS;
 }
-<<<<<<< HEAD
 const char* printUser(char* user_name, User user) {
     if(!user) return user_name;
     return mtmPrintUser(user->username, user->age, setGetFirst(user->friends),
                  setGetFirst(user->favorites));
-=======
+    
 void printUser(User user) { //remove this function
     printf("%s\n%d", user->username, user->age);
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
 }
