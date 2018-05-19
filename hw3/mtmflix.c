@@ -41,7 +41,11 @@ void mtmFlixDestroy(MtmFlix mtmflix) {
     }
 }
 MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
+<<<<<<< HEAD
     if(!mtmflix || !username) return MTMFLIX_NULL_ARGUMENT;
+=======
+
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
     char* newUsername = malloc(strlen(username));
     if(!newUsername) return MTMFLIX_OUT_OF_MEMORY;
     strcpy(newUsername, username);
@@ -135,34 +139,102 @@ MtmFlixResult mtmFlixSeriesLeave(MtmFlix mtmflix, const char* username,
     //STILL NEED TO FREE SHIT! (USER, SERIES, NAMES)
     return MTMFLIX_SUCCESS;
 }
+<<<<<<< HEAD
 MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1,
                                const char* username2) {
     if (!mtmflix || !username1 || username2) return MTMFLIX_NULL_ARGUMENT;
+=======
+MtmFlixResult mtmFlixSeriesJoin(MtmFlix mtmflix, const char* username,
+                                const char* seriesName) {
+    if (!mtmflix || !username || !seriesName)
+        return MTMFLIX_NULL_ARGUMENT;
+    //making a non-const username and making sure it exists:
+    char* searchUsername = malloc(strlen(username));
+    strcpy(searchUsername, username);
+    User ourUser = mapGet(mtmflix->userList, searchUsername);
+    if (!searchUsername)
+        return MTMFLIX_USER_DOES_NOT_EXIST;
+    //making a non-const seriesName and making sure it exists:
+    char* searchSeriesName = malloc(strlen(seriesName));
+    strcpy(searchSeriesName, seriesName);
+    Series ourSeries = mapGet(mtmflix->seriesList, searchSeriesName);
+    if (!searchSeriesName)
+        return MTMFLIX_SERIES_DOES_NOT_EXIST;
+    //the lines that actually make the function:
+    if (userAddFavorite(ourUser, ourSeries) == MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE)
+        return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
+    mapPut(mtmflix->userList, searchUsername, ourUser);
+    //STILL NEED TO FREE SHIT! (USER, SERIES, NAMES)
+    return MTMFLIX_SUCCESS;
+}
+MtmFlixResult mtmFlixSeriesLeave(MtmFlix mtmflix, const char* username,
+                                 const char* seriesName) {
+    if (!mtmflix || !username || !seriesName)
+        return MTMFLIX_NULL_ARGUMENT;
+    //making a non-const username and making sure it exists:
+    char* searchUsername = malloc(strlen(username));
+    strcpy(searchUsername, username);
+    User ourUser = mapGet(mtmflix->userList, searchUsername);
+    if (!searchUsername)
+        return MTMFLIX_USER_DOES_NOT_EXIST;
+    //making a non-const seriesName and making sure it exists:
+    char* searchSeriesName = malloc(strlen(seriesName));
+    strcpy(searchSeriesName, seriesName);
+    Series ourSeries = mapGet(mtmflix->seriesList, searchSeriesName);
+    if (!searchSeriesName)
+        return MTMFLIX_SERIES_DOES_NOT_EXIST;
+    //the lines that actually make the function:
+    userRemoveFavorite(ourUser, ourSeries);
+    mapPut(mtmflix->userList, searchUsername, ourUser);
+    //STILL NEED TO FREE SHIT! (USER, SERIES, NAMES)
+    return MTMFLIX_SUCCESS;
+}
+MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1,
+                               const char* username2) {
+    if (!mtmflix || !username1 || username2)
+        return MTMFLIX_NULL_ARGUMENT;
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
     char* newUsername1 = malloc(strlen(username1));
     strcpy(newUsername1, username1);
     char* newUsername2 = malloc(strlen(username2));
     strcpy(newUsername2, username2);
     User ourUser = mapGet(mtmflix->userList, newUsername1);
     User friend = mapGet(mtmflix->userList, newUsername2);
+<<<<<<< HEAD
     if (!ourUser || !friend) return MTMFLIX_USER_DOES_NOT_EXIST;
+=======
+    if (!ourUser || !friend)
+        return MTMFLIX_USER_DOES_NOT_EXIST;
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
     userAddFriend(ourUser, friend);
     mapPut(mtmflix->userList, newUsername1, ourUser);
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1,
                                const char* username2) {
+<<<<<<< HEAD
     if (!mtmflix || !username1 || username2) return MTMFLIX_NULL_ARGUMENT;
+=======
+    if (!mtmflix || !username1 || username2)
+        return MTMFLIX_NULL_ARGUMENT;
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
     char* newUsername1 = malloc(strlen(username1));
     strcpy(newUsername1, username1);
     char* newUsername2 = malloc(strlen(username2));
     strcpy(newUsername2, username2);
     User ourUser = mapGet(mtmflix->userList, newUsername1);
     User friend = mapGet(mtmflix->userList, newUsername2);
+<<<<<<< HEAD
     if (!ourUser || !friend) return MTMFLIX_USER_DOES_NOT_EXIST;
+=======
+    if (!ourUser || !friend)
+        return MTMFLIX_USER_DOES_NOT_EXIST;
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
     userRemoveFriend(ourUser, friend);
     mapPut(mtmflix->userList, newUsername1, ourUser);
     return MTMFLIX_SUCCESS;
 }
+<<<<<<< HEAD
 MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream){
     if(!mtmflix || !outputStream) return MTMFLIX_NULL_ARGUMENT;
     if(seriesNum < 0) return MTMFLIX_ILLEGAL_NUMBER;
@@ -278,3 +350,5 @@ static char** sortMapKeys(Map map){
     names[names_num] = NULL;
     return names;
 }
+=======
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002

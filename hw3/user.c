@@ -89,8 +89,13 @@ MtmFlixResult userRemoveFriend(User user, User friend) {
     setRemove(user->friends, friend);
     return MTMFLIX_SUCCESS;
 }
+<<<<<<< HEAD
 const char* printUser(char* user_name, User user) {
     if(!user) return user_name;
     return mtmPrintUser(user->username, user->age, setGetFirst(user->friends),
                  setGetFirst(user->favorites));
+=======
+void printUser(User user) { //remove this function
+    printf("%s\n%d", user->username, user->age);
+>>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
 }
