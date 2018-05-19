@@ -42,10 +42,10 @@ typedef struct List_t *List;
 
 /** Type used for returning error codes from list functions */
 typedef enum ListResult_t {
-    LIST_SUCCESS,
-    LIST_NULL_ARGUMENT,
-    LIST_OUT_OF_MEMORY,
-    LIST_INVALID_CURRENT,
+	LIST_SUCCESS,
+	LIST_NULL_ARGUMENT,
+	LIST_OUT_OF_MEMORY,
+	LIST_INVALID_CURRENT,
 } ListResult;
 
 /** Element data type for list container */

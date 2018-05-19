@@ -37,14 +37,14 @@ typedef enum {
 
 
 typedef enum {
-	SCIENCE_FICTION,
-	DRAMA,
-	COMEDY,
-	CRIME,
-	MYSTERY,
-	DOCUMENTARY,
-	ROMANCE,
-	HORROR
+        SCIENCE_FICTION,
+        DRAMA,
+        COMEDY,
+        CRIME,
+        MYSTERY,
+        DOCUMENTARY,
+        ROMANCE,
+        HORROR
 } Genre;
 
 /**
