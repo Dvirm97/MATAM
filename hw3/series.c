@@ -60,6 +60,7 @@ int seriesCompareGenres(Genre genre1, Genre genre2){
 Series createSeries(const char* name, int episodesNum,
                                Genre genre, int* ages, int episodesDuration) {
     Series series = malloc(sizeof(series));
+    series->name = malloc(strlen(name));
     strcpy(series->name, name);
     series->episodesNum = episodesNum;
     series->genre = genre;
