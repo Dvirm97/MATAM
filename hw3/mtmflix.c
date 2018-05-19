@@ -84,6 +84,7 @@ MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name,
 MtmFlixResult mtmFlixRemoveSeries(MtmFlix mtmflix, const char* name) {
     if(!mtmflix || !name) return MTMFLIX_NULL_ARGUMENT;
     char* removedName = malloc(strlen(name));
+    strcpy(removedName, name);
     if(!removedName) return MTMFLIX_OUT_OF_MEMORY;
     mapRemove(mtmflix->seriesList, removedName);
     return MTMFLIX_SUCCESS;
