@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "mtm_ex3.h"
+#include "map.h"
 
 /* This is here to help you. The real definitions are in mtm_ex3.h */
 
@@ -43,5 +44,13 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username, int cou
 
 MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream);
 MtmFlixResult mtmFlixReportUsers(MtmFlix mtmflix, FILE* outputStream);
+
+Map GetSeriesList(MtmFlix mtmflix);
+Map GetUserList(MtmFlix mtmflix);
+
+void printS(MtmFlix mtmflix);
+void printU(MtmFlix mtmflix);
+
+
 
 #endif /* MTMFLIX_H_ */

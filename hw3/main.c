@@ -1,9 +1,10 @@
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include <windows.h>
 #include "mtmflix.h"
 #include "test_utilities.h"
+#define str(x) #x
+#define xstr(x) str(x)
 
 char* readFile(char* path);
 bool mtmFlixUnitTest();
@@ -23,6 +24,55 @@ bool mtmFlixRemoveUserTestAdvanced();
 bool mtmFlixRemoveSeriesTestAdvanced();
 
 int main() {
+    /*MtmFlix system = mtmFlixCreate();
+    int ages1[2] = {MTM_MIN_AGE, MTM_MAX_AGE};
+    int ages2[2] = {MTM_MIN_AGE - 1, MTM_MAX_AGE};
+    int ages3[2] = {MTM_MIN_AGE, MTM_MAX_AGE + 1};
+    int ages4[2] = {18, 25};
+
+    mtmFlixAddUser(system, "Rachel", 22);
+    mtmFlixAddUser(system, "Chandler", 23);
+    mtmFlixAddUser(system, "Monica", 31);
+    mtmFlixAddUser(system, "Ross", 30);
+    mtmFlixAddUser(system, "Joey", 29);
+    mtmFlixAddUser(system, "Pheobe", 31);
+
+    printU(system);
+
+    mtmFlixAddSeries(system, "Friends", 9000, COMEDY, NULL, 25);
+    mtmFlixAddSeries(system, "21JumpStreet", 20, COMEDY, NULL, 25);
+    mtmFlixAddSeries(system, "Community", 60, COMEDY, ages1, 25);
+    mtmFlixAddSeries(system, "Westworld", 20, DRAMA, ages3, 60);
+    mtmFlixAddSeries(system, "Westworld", 20, DOCUMENTARY, NULL, 60);
+    mtmFlixAddSeries(system, "GameOfThrones", 70, DOCUMENTARY, ages4, 60);
+    mtmFlixAddSeries(system, "24", 24, ROMANCE, ages4, 24);
+    mtmFlixAddSeries(system, "TheCrown", 10, DOCUMENTARY, ages4, 50);
+    mtmFlixAddSeries(system, "Scrubs", 300, COMEDY, ages4, 25);
+    mtmFlixAddSeries(system, "PlanetEarth", 10, DOCUMENTARY, NULL, 45);
+    mtmFlixAddSeries(system, "BreakingBad", 50, DRAMA, ages2, 60);
+
+    printS(system);
+
+    FILE* fp = fopen("./mtmFlixReportSeries_test.out", "w");
+    printf("fopen works\n");
+    mtmFlixReportUsers(system, fp);
+    fclose(fp);
+    char* output = readFile("./mtmFlixReportSeries_test.out");
+    printf("0 output:\n%s\n",output);
+
+    fp = fopen("./mtmFlixReportSeries_test.out", "w");
+    mtmFlixReportSeries(system, 1, fp);
+    fclose(fp);
+    output = readFile("./mtmFlixReportSeries_test.out");
+    printf("1 output:\n%s\n",output);
+
+    fp = fopen("./mtmFlixReportSeries_test.out", "w");
+    mtmFlixReportSeries(system, 3, fp);
+    fclose(fp);
+    output = readFile("./mtmFlixReportSeries_test.out");
+    printf("3 output:\n%s\n",output);
+
+    mtmFlixDestroy(system);*/
     mtmFlixUnitTest();
     return 0;
 }
@@ -45,7 +95,7 @@ bool mtmFlixUnitTest() {
     RUN_TEST(mtmFlixRemoveSeriesTestAdvanced);
 
     MessageBox(NULL, "I don't know about the code, but are you sure your style is good?\n\n"
-                     "https://xkcd.com/1695/" , "Real Windows dialogue", 4);
+            "https://xkcd.com/1695/" , "Real Windows dialogue", 4);
     return true;
 }
 
@@ -138,7 +188,7 @@ bool mtmFlixAddSeriesTest() {
 
 bool mtmFlixRemoveSeriesTest() {
     MtmFlix system = mtmFlixCreate();
-    mtmFlixAddSeries(system, "Homeland", 30, CRIME, NULL, 60);
+    ASSERT_TEST(mtmFlixAddSeries(system, "Homeland", 30, CRIME, NULL, 60) == MTMFLIX_SUCCESS);
     // Null values
     ASSERT_TEST(mtmFlixRemoveSeries(NULL, "Friends") == MTMFLIX_NULL_ARGUMENT);
     ASSERT_TEST(mtmFlixRemoveSeries(system, NULL) == MTMFLIX_NULL_ARGUMENT);
@@ -152,25 +202,46 @@ bool mtmFlixRemoveSeriesTest() {
 }
 
 bool mtmFlixReportSeriesTest() {
+   /*
+    char* results[15] ={
+        "MTMFLIX_SUCCESS",
+        "MTMFLIX_OUT_OF_MEMORY",
+        "MTMFLIX_NULL_ARGUMENT",
+        "MTMFLIX_SERIES_ALREADY_EXISTS",
+        "MTMFLIX_SERIES_DOES_NOT_EXIST",
+        "MTMFLIX_NO_SERIES",
+        "MTMFLIX_USER_ALREADY_EXISTS",
+        "MTMFLIX_USER_DOES_NOT_EXIST",
+        "MTMFLIX_NO_USERS",
+        "MTMFLIX_USER_ALREADY_FRIEND",
+        "MTMFLIX_USER_NOT_FRIEND",
+        "MTMFLIX_ILLEGAL_VALUE",
+        "MTMFLIX_ILLEGAL_EPISODES_NUM",
+        "MTMFLIX_ILLEGAL_EPISODES_DURATION",
+        "MTMFLIX_ILLEGAL_SERIES_NAME"
+    };*/
     MtmFlix system = mtmFlixCreate();
     FILE* fp = fopen("./mtmFlixReportSeries_test.out", "w");
     ASSERT_TEST(mtmFlixReportSeries(NULL, 0, fp) == MTMFLIX_NULL_ARGUMENT);
     ASSERT_TEST(mtmFlixReportSeries(system, 0, NULL) == MTMFLIX_NULL_ARGUMENT);
     ASSERT_TEST(mtmFlixReportSeries(system, 0, fp) == MTMFLIX_NO_SERIES);
     ASSERT_TEST(mtmFlixReportSeries(system, 5, fp) == MTMFLIX_NO_SERIES);
-
     // Report with no amount limitations
     int ages[2] = {18, 25};
     mtmFlixAddSeries(system, "Friends", 9000, COMEDY, NULL, 25);
     mtmFlixAddSeries(system, "Westworld", 20, DOCUMENTARY, NULL, 60);
     mtmFlixAddSeries(system, "GameOfThrones", 70, DOCUMENTARY, ages, 60);
 
+    //printf("syste:\n");
+    //printS(system);
+
     MtmFlixResult result = mtmFlixReportSeries(system, 0, fp);
     fclose(fp);
     char* output = readFile("./mtmFlixReportSeries_test.out");
+    //printf("\noutput:\n%s\n%s",output,results[(int)result]);
     const char* test1_valid = "Series 'Friends', Genre: COMEDY.\n"
-                              "Series 'GameOfThrones', Genre: DOCUMENTARY.\n"
-                              "Series 'Westworld', Genre: DOCUMENTARY.\n";
+            "Series 'GameOfThrones', Genre: DOCUMENTARY.\n"
+            "Series 'Westworld', Genre: DOCUMENTARY.\n";
     ASSERT_TEST(result == MTMFLIX_SUCCESS && strcmp(output, test1_valid) == 0);
 
     // Report with amount limitation
@@ -179,7 +250,7 @@ bool mtmFlixReportSeriesTest() {
     fclose(fp);
     output = readFile("./mtmFlixReportSeries_test.out");
     const char* test2_valid = "Series 'Friends', Genre: COMEDY.\n"
-                              "Series 'GameOfThrones', Genre: DOCUMENTARY.\n";
+            "Series 'GameOfThrones', Genre: DOCUMENTARY.\n";
     ASSERT_TEST(result == MTMFLIX_SUCCESS && strcmp(output, test2_valid) == 0);
 
     // Report with series below, at, and above amount limitation
@@ -193,10 +264,10 @@ bool mtmFlixReportSeriesTest() {
     fclose(fp);
     output = readFile("./mtmFlixReportSeries_test.out");
     const char* test3_valid = "Series 'Friends', Genre: COMEDY.\n"
-                              "Series 'Scrubs', Genre: COMEDY.\n"
-                              "Series 'GameOfThrones', Genre: DOCUMENTARY.\n"
-                              "Series 'PlanetEarth', Genre: DOCUMENTARY.\n"
-                              "Series '24', Genre: ROMANCE.\n";
+            "Series 'Scrubs', Genre: COMEDY.\n"
+            "Series 'GameOfThrones', Genre: DOCUMENTARY.\n"
+            "Series 'PlanetEarth', Genre: DOCUMENTARY.\n"
+            "Series '24', Genre: ROMANCE.\n";
     ASSERT_TEST(result == MTMFLIX_SUCCESS && strcmp(output, test3_valid) == 0);
 
     mtmFlixDestroy(system);
@@ -218,11 +289,11 @@ bool mtmFlixReportUsersTest() {
     MtmFlixResult result = mtmFlixReportUsers(system, fp);
     fclose(fp);
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Monica is 30 years old\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Rachel is 18 years old\n";
+            "The user Chandler is 23 years old\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Monica is 30 years old\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Rachel is 18 years old\n";
     char* output = readFile("./mtmFlixReportUsers_test.out");
     ASSERT_TEST(result == MTMFLIX_SUCCESS && strcmp(output, test1_valid) == 0);
 
@@ -231,6 +302,23 @@ bool mtmFlixReportUsersTest() {
 }
 
 bool mtmFlixSeriesJoinTest() {
+    char* results[15] ={
+            "MTMFLIX_SUCCESS",
+            "MTMFLIX_OUT_OF_MEMORY",
+            "MTMFLIX_NULL_ARGUMENT",
+            "MTMFLIX_SERIES_ALREADY_EXISTS",
+            "MTMFLIX_SERIES_DOES_NOT_EXIST",
+            "MTMFLIX_NO_SERIES",
+            "MTMFLIX_USER_ALREADY_EXISTS",
+            "MTMFLIX_USER_DOES_NOT_EXIST",
+            "MTMFLIX_NO_USERS",
+            "MTMFLIX_USER_ALREADY_FRIEND",
+            "MTMFLIX_USER_NOT_FRIEND",
+            "MTMFLIX_ILLEGAL_VALUE",
+            "MTMFLIX_ILLEGAL_EPISODES_NUM",
+            "MTMFLIX_ILLEGAL_EPISODES_DURATION",
+            "MTMFLIX_ILLEGAL_SERIES_NAME"};
+
     MtmFlix system = mtmFlixCreate();
     // Null values
     ASSERT_TEST(mtmFlixSeriesJoin(NULL, "Chandler", "House") == MTMFLIX_NULL_ARGUMENT);
@@ -252,6 +340,9 @@ bool mtmFlixSeriesJoinTest() {
     ASSERT_TEST(mtmFlixSeriesJoin(system, "Chandler", "") == MTMFLIX_SERIES_DOES_NOT_EXIST);
 
     // Invalid age
+    MtmFlixResult res = mtmFlixSeriesJoin(system, "Chandler", "Homeland");
+    printf("res=%s\n",results[(int)res]);
+
     ASSERT_TEST(mtmFlixSeriesJoin(system, "Chandler", "Homeland") == MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE);
 
     // Valid input
@@ -264,12 +355,12 @@ bool mtmFlixSeriesJoinTest() {
     mtmFlixReportUsers(system, fp);
     fclose(fp);
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "Series: House\n"
-                              "Series: Shameless\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Rachel is 22 years old\n"
-                              "Series: House\n";
+            "The user Chandler is 23 years old\n"
+            "Series: House\n"
+            "Series: Shameless\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Rachel is 22 years old\n"
+            "Series: House\n";
     char* output = readFile("./mtmFlixSeriesJoin_test.out");
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
@@ -300,7 +391,7 @@ bool mtmFlixSeriesLeaveTest() {
     mtmFlixReportUsers(system, fp);
     fclose(fp);
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n";
+            "The user Chandler is 23 years old\n";
     char* output = readFile("./mtmFlixSeriesLeave_test.out");
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
@@ -330,10 +421,10 @@ bool mtmFlixAddFriendTest() {
     mtmFlixReportUsers(system, fp);
     fclose(fp);
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "Friend: Rachel\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Rachel is 22 years old\n";
+            "The user Chandler is 23 years old\n"
+            "Friend: Rachel\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Rachel is 22 years old\n";
     char* output = readFile("./mtmFlixAddFriend_test.out");
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
@@ -343,11 +434,11 @@ bool mtmFlixAddFriendTest() {
     mtmFlixReportUsers(system, fp);
     fclose(fp);
     const char* test2_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "Friend: Rachel\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Rachel is 22 years old\n"
-                              "Friend: Chandler\n";
+            "The user Chandler is 23 years old\n"
+            "Friend: Rachel\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Rachel is 22 years old\n"
+            "Friend: Chandler\n";
     output = readFile("./mtmFlixAddFriend_test.out");
     ASSERT_TEST(strcmp(output, test2_valid) == 0);
 
@@ -385,14 +476,14 @@ bool mtmFlixRemoveFriendTest() {
     mtmFlixReportUsers(system, fp);
     fclose(fp);
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Phoebe is 24 years old\n"
-                              "Friend: Chandler\n"
-                              "Friend: Rachel\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Rachel is 22 years old\n"
-                              "Friend: Phoebe\n";
+            "The user Chandler is 23 years old\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Phoebe is 24 years old\n"
+            "Friend: Chandler\n"
+            "Friend: Rachel\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Rachel is 22 years old\n"
+            "Friend: Phoebe\n";
     char* output = readFile("./mtmFlixRemoveFriend_test.out");
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
@@ -474,7 +565,7 @@ bool mtmFlixGetRecommendationsTest() {
     mtmFlixGetRecommendations(system, "Chandler", 0, fp);
     fclose(fp);
     const char* test3_valid = "Series 'DoctorWho', Genre: SCIENCE_FICTION.\n"
-                              "Series 'TheOffice', Genre: COMEDY.\n";
+            "Series 'TheOffice', Genre: COMEDY.\n";
     output = readFile("./mtmFlixGetRecommendations_test.out");
     ASSERT_TEST(strcmp(output, test3_valid) == 0);
 
@@ -484,7 +575,7 @@ bool mtmFlixGetRecommendationsTest() {
     mtmFlixGetRecommendations(system, "Chandler", 0, fp);
     fclose(fp);
     const char* test4_valid = "Series 'TheOffice', Genre: COMEDY.\n"
-                              "Series 'DoctorWho', Genre: SCIENCE_FICTION.\n";
+            "Series 'DoctorWho', Genre: SCIENCE_FICTION.\n";
     output = readFile("./mtmFlixGetRecommendations_test.out");
     ASSERT_TEST(strcmp(output, test4_valid) == 0);
 
@@ -520,12 +611,12 @@ bool mtmFlixRemoveUserTestAdvanced() {
     fclose(fp);
 
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "Friend: Phoebe\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Phoebe is 24 years old\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Shalev is 16 years old\n";
+            "The user Chandler is 23 years old\n"
+            "Friend: Phoebe\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Phoebe is 24 years old\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Shalev is 16 years old\n";
     char* output = readFile("./mtmflixRemoveUser_testAdvanced.out");
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
@@ -554,10 +645,10 @@ bool mtmFlixRemoveSeriesTestAdvanced() {
     fclose(fp);
 
     const char* test1_valid = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Chandler is 23 years old\n"
-                              "Series: Community\n"
-                              "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                              "The user Rachel is 22 years old\n";
+            "The user Chandler is 23 years old\n"
+            "Series: Community\n"
+            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            "The user Rachel is 22 years old\n";
     char* output = readFile("./mtmflixRemoveSeries_testAdvanced.out");
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
@@ -567,9 +658,16 @@ bool mtmFlixRemoveSeriesTestAdvanced() {
 
 char* readFile(char* path) {
     FILE* fp = fopen(path, "r");
-    char* output = NULL;
-    size_t len;
-    getdelim(&output, &len, '\0', fp);
+    char* output = malloc(0);
+    int ch = getc(fp), i = 1;
+    while (ch != EOF) {
+        output = realloc(output, i);
+        *(output + i - 1) = ch;
+        ch = getc(fp);
+        i++;
+    }
+    output = realloc(output, i);
+    *(output + i - 1) = '\0';
     fclose(fp);
     return output;
 }

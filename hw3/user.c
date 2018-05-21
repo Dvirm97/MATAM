@@ -25,7 +25,8 @@ MapDataElement copyUser(MapDataElement src) {
         return NULL;
     }
     User res = (User)src; //doing this right?
-    strcpy(dst->username, res->username); //dunno if need another malloc for this
+    dst->username = malloc(strlen(res->username)+1);
+    strcpy(dst->username, res->username);
     dst->age = res->age;
     dst->favorites = setCopy(res->favorites);
     dst->friends = setCopy(res->friends);
@@ -47,8 +48,14 @@ void userDeleteName(MapKeyElement name) {
 int userCompareNames(MapKeyElement name1, MapKeyElement name2) {
     return strcmp((char*)name1, (char*)name2);
 }
+int userCompareNamesForSet(MapKeyElement user1, MapKeyElement user2) {
+    return strcmp(((User)user1)->username, ((User)user2)->username);
+}
 User createUser(const char* newUsername, int newAge) {
-    User user = malloc(sizeof(user));
+    User user = malloc(sizeof(*user));
+    if(!user) return NULL;
+    user->username = malloc(sizeof(char)*(strlen(newUsername)+1));
+    if(!user->username) return NULL;
     strcpy(user->username, newUsername);
     user->age = newAge;
     user->favorites = setCreate(copySeries, deleteSeries, seriesCompareNames);
@@ -63,10 +70,8 @@ MtmFlixResult userAddFavorite(User user, Series series) {
     //(should be defined separately in a static function)
     //(should probably make this check in mtmflix.c and not here):
     int* seriesAges = seriesGetAges(series);
-    if (seriesAges)
-        if (user->age < *seriesAges || user->age > *(seriesAges + 1))
-            return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
-
+    if (seriesAges && (user->age < seriesAges[0] || user->age > seriesAges[1]))
+        return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
     if (setAdd(user->favorites, series) == SET_OUT_OF_MEMORY)
         return MTMFLIX_OUT_OF_MEMORY;
     return MTMFLIX_SUCCESS;
@@ -89,13 +94,7 @@ MtmFlixResult userRemoveFriend(User user, User friend) {
     setRemove(user->friends, friend);
     return MTMFLIX_SUCCESS;
 }
-<<<<<<< HEAD
-const char* printUser(char* user_name, User user) {
-    if(!user) return user_name;
+const char* printUser(User user) {
     return mtmPrintUser(user->username, user->age, setGetFirst(user->friends),
-                 setGetFirst(user->favorites));
-=======
-void printUser(User user) { //remove this function
-    printf("%s\n%d", user->username, user->age);
->>>>>>> ea91432b0dba9ca5736898feb769fe2aa11ee002
+                        setGetFirst(user->favorites));
 }

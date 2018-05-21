@@ -1,10 +1,11 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/hw3.dir/main.c.o"
-  "CMakeFiles/hw3.dir/mtmflix.c.o"
-  "CMakeFiles/hw3.dir/user.c.o"
-  "CMakeFiles/hw3.dir/series.c.o"
+  "CMakeFiles/hw3.dir/main.c.obj"
+  "CMakeFiles/hw3.dir/mtmflix.c.obj"
+  "CMakeFiles/hw3.dir/user.c.obj"
+  "CMakeFiles/hw3.dir/series.c.obj"
   "hw3.pdb"
   "hw3.exe"
+  "hw3.exe.manifest"
   "libhw3.dll.a"
 )
 

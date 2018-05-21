@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/list.h
+C:/Users/shani/CLionProjects/hw3/list.h
 stdbool.h
 -
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/main.c
+C:/Users/shani/CLionProjects/hw3/main.c
 stdio.h
 -
 string.h
@@ -18,23 +18,23 @@ string.h
 windows.h
 -
 mtmflix.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtmflix.h
+C:/Users/shani/CLionProjects/hw3/mtmflix.h
 test_utilities.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/test_utilities.h
+C:/Users/shani/CLionProjects/hw3/test_utilities.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/map.h
+C:/Users/shani/CLionProjects/hw3/map.h
 stdbool.h
 -
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
 stdio.h
 -
 stdbool.h
 -
 list.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/list.h
+C:/Users/shani/CLionProjects/hw3/list.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtmflix.c
+C:/Users/shani/CLionProjects/hw3/mtmflix.c
 stdbool.h
 -
 stdlib.h
@@ -44,57 +44,59 @@ stdio.h
 string.h
 -
 map.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/map.h
+C:/Users/shani/CLionProjects/hw3/map.h
 set.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/set.h
+C:/Users/shani/CLionProjects/hw3/set.h
 list.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/list.h
+C:/Users/shani/CLionProjects/hw3/list.h
 mtmflix.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtmflix.h
+C:/Users/shani/CLionProjects/hw3/mtmflix.h
 series.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.h
+C:/Users/shani/CLionProjects/hw3/series.h
 user.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/user.h
+C:/Users/shani/CLionProjects/hw3/user.h
 series.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.h
+C:/Users/shani/CLionProjects/hw3/series.h
 mtm_ex3.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtmflix.h
+C:/Users/shani/CLionProjects/hw3/mtmflix.h
 stdio.h
 -
 mtm_ex3.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
+map.h
+C:/Users/shani/CLionProjects/hw3/map.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.c
+C:/Users/shani/CLionProjects/hw3/series.c
 stdlib.h
 -
 string.h
 -
 series.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.h
+C:/Users/shani/CLionProjects/hw3/series.h
 mtm_ex3.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.h
+C:/Users/shani/CLionProjects/hw3/series.h
 map.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/map.h
+C:/Users/shani/CLionProjects/hw3/map.h
 mtm_ex3.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/set.h
+C:/Users/shani/CLionProjects/hw3/set.h
 stdbool.h
 -
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/test_utilities.h
+C:/Users/shani/CLionProjects/hw3/test_utilities.h
 stdbool.h
 -
 stdio.h
 -
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/user.c
+C:/Users/shani/CLionProjects/hw3/user.c
 user.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/user.h
+C:/Users/shani/CLionProjects/hw3/user.h
 stdbool.h
 -
 stdlib.h
@@ -104,19 +106,19 @@ stdio.h
 string.h
 -
 map.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/map.h
+C:/Users/shani/CLionProjects/hw3/map.h
 set.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/set.h
+C:/Users/shani/CLionProjects/hw3/set.h
 series.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.h
+C:/Users/shani/CLionProjects/hw3/series.h
 mtm_ex3.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
 
-/cygdrive/c/Users/shani/CLionProjects/hw3/user.h
+C:/Users/shani/CLionProjects/hw3/user.h
 map.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/map.h
+C:/Users/shani/CLionProjects/hw3/map.h
 series.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/series.h
+C:/Users/shani/CLionProjects/hw3/series.h
 mtm_ex3.h
-/cygdrive/c/Users/shani/CLionProjects/hw3/mtm_ex3.h
+C:/Users/shani/CLionProjects/hw3/mtm_ex3.h
 
