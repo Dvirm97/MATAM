@@ -52,15 +52,10 @@ int userCompareNamesForSet(MapKeyElement user1, MapKeyElement user2) {
     return strcmp(((User)user1)->username, ((User)user2)->username);
 }
 User createUser(const char* newUsername, int newAge) {
-<<<<<<< HEAD
     User user = malloc(sizeof(*user));
     if(!user) return NULL;
     user->username = malloc(sizeof(char)*(strlen(newUsername)+1));
     if(!user->username) return NULL;
-=======
-    User user = malloc(sizeof(user));
-    user->username = malloc(strlen(newUsername)+1);
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
     strcpy(user->username, newUsername);
     user->age = newAge;
     user->favorites = setCreate(copySeries, deleteSeries, seriesCompareNames);
@@ -75,14 +70,8 @@ MtmFlixResult userAddFavorite(User user, Series series) {
     //(should be defined separately in a static function)
     //(should probably make this check in mtmflix.c and not here):
     int* seriesAges = seriesGetAges(series);
-<<<<<<< HEAD
     if (seriesAges && (user->age < seriesAges[0] || user->age > seriesAges[1]))
         return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
-=======
-    if (seriesAges)
-        if (user->age < *seriesAges || user->age > *(seriesAges + 1))
-            return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
     if (setAdd(user->favorites, series) == SET_OUT_OF_MEMORY)
         return MTMFLIX_OUT_OF_MEMORY;
     return MTMFLIX_SUCCESS;
@@ -105,17 +94,7 @@ MtmFlixResult userRemoveFriend(User user, User friend) {
     setRemove(user->friends, friend);
     return MTMFLIX_SUCCESS;
 }
-<<<<<<< HEAD
 const char* printUser(User user) {
     return mtmPrintUser(user->username, user->age, setGetFirst(user->friends),
                         setGetFirst(user->favorites));
-=======
-const char* printUser(char* user_name, User user) {
-    if(!user) return user_name;
-    return mtmPrintUser(user->username, user->age, setGetFirst(user->friends),
-                 setGetFirst(user->favorites));
-    
-void printUser(User user) { //remove this function
-    printf("%s\n%d", user->username, user->age);
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
 }

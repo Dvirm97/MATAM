@@ -19,13 +19,7 @@ const char* seriesGetGenre(Series series);
 Series createSeries(const char* name, int episodesNum,
                     Genre genre, int* ages, int episodesDuration);
 int* seriesGetAges(Series series);
-<<<<<<< HEAD
 const char* printSeries(Series series);
 
 
-=======
-/*const char* genres[] = { "SCIENCE_FICTION", "DRAMA", "COMEDY", "CRIME",
-                           "MYSTERY", "DOCUMENTARY", "ROMANCE", "HORROR"};
- */
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
 #endif //HW3_SERIES_H

@@ -47,7 +47,6 @@ void mtmFlixDestroy(MtmFlix mtmflix) {
 }
 MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
     if(!mtmflix || !username) return MTMFLIX_NULL_ARGUMENT;
-<<<<<<< HEAD
     if(!checkName(username)) return MTMFLIX_ILLEGAL_USERNAME;
     if(mapContains(mtmflix->userList, (char*)username))
         return MTMFLIX_USERNAME_ALREADY_USED;
@@ -57,13 +56,6 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
     if(!user) return MTMFLIX_OUT_OF_MEMORY;
     mapPut(mtmflix->userList, (char*)username, user);
 
-=======
-    char* newUsername = malloc(strlen(username));
-    if(!newUsername) return MTMFLIX_OUT_OF_MEMORY;
-    strcpy(newUsername, username);
-    User user = createUser(newUsername, age);
-    mapPut(mtmflix->userList, newUsername, user);
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username) {
@@ -92,19 +84,12 @@ MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name,
 }
 MtmFlixResult mtmFlixRemoveSeries(MtmFlix mtmflix, const char* name) {
     if(!mtmflix || !name) return MTMFLIX_NULL_ARGUMENT;
-<<<<<<< HEAD
     if(!checkName(name)) return MTMFLIX_SERIES_DOES_NOT_EXIST;
     if(!mapContains(mtmflix->seriesList, (char*)name))
         return MTMFLIX_SERIES_DOES_NOT_EXIST;
     MapResult result = mapRemove(mtmflix->seriesList, (char*)name);
     if(result == MAP_ITEM_DOES_NOT_EXIST) return MTMFLIX_USER_DOES_NOT_EXIST;
     else if (result == MAP_NULL_ARGUMENT) return MTMFLIX_NULL_ARGUMENT;
-=======
-    char* removedName = malloc(strlen(name));
-    strcpy(removedName, name);
-    if(!removedName) return MTMFLIX_OUT_OF_MEMORY;
-    mapRemove(mtmflix->seriesList, removedName);
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult mtmFlixSeriesJoin(MtmFlix mtmflix, const char* username,
@@ -343,7 +328,6 @@ static bool checkName(const char* username) {
     return true;
 }
 
-<<<<<<< HEAD
 void printU(MtmFlix mtmflix){
     Map usersList = GetUserList(mtmflix);
     char* ptr = mapGetFirst(usersList);
@@ -385,5 +369,3 @@ static void printArr(const char** arr, int n){
     }
     printf("\n");
 }*/
-=======
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
