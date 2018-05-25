@@ -8,7 +8,6 @@
 #include "mtmflix.h"
 #include "series.h"
 #include "user.h"
-#include "series.h"
 #include "mtm_ex3.h"
 #define str(x) #x
 #define xstr(x) str(x)
@@ -97,14 +96,19 @@ MtmFlixResult mtmFlixSeriesJoin(MtmFlix mtmflix, const char* username,
     if (!mtmflix || !username || !seriesName) return MTMFLIX_NULL_ARGUMENT;
 
     User ourUser = mapGet(mtmflix->userList, (char*)username);
-    if (!ourUser) return MTMFLIX_USER_DOES_NOT_EXIST;
-    Series ourSeries = mapGet(mtmflix->seriesList, (char*)username);
-    if (!ourSeries) return MTMFLIX_SERIES_DOES_NOT_EXIST;
 
-    //the lines that actually make the function:
+    if (!ourUser) return MTMFLIX_USER_DOES_NOT_EXIST;
+
+    Series ourSeries = mapGet(mtmflix->seriesList, (char*)seriesName);
+    if (!ourSeries){
+        return MTMFLIX_SERIES_DOES_NOT_EXIST;
+    }
+
     if (userAddFavorite(ourUser, ourSeries) ==
             MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE){
+
         return MTMFLIX_USER_NOT_IN_THE_RIGHT_AGE;
+
     }
     mapPut(mtmflix->userList, (char*)username, ourUser);
     return MTMFLIX_SUCCESS;
@@ -117,18 +121,19 @@ MtmFlixResult mtmFlixSeriesLeave(MtmFlix mtmflix, const char* username,
     User ourUser = mapGet(mtmflix->userList, (char*)username);
 
     if(!mapContains(mtmflix->seriesList, (char*)seriesName))
-        return MTMFLIX_USER_DOES_NOT_EXIST;
+        return MTMFLIX_SERIES_DOES_NOT_EXIST;
     Series ourSeries = mapGet(mtmflix->seriesList, (char*)seriesName);
 
     //the lines that actually make the function:
     userRemoveFavorite(ourUser, ourSeries);
+
     mapPut(mtmflix->userList, (char*)username, ourUser);
 
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1,
                                const char* username2) {
-    if (!mtmflix || !username1 || username2)
+    if (!mtmflix || !username1 || !username2)
         return MTMFLIX_NULL_ARGUMENT;
     User ourUser = mapGet(mtmflix->userList, (char*)username1);
     User friend = mapGet(mtmflix->userList, (char*)username2);
@@ -139,9 +144,7 @@ MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1,
 }
 MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1,
                                const char* username2) {
-    if (!mtmflix || !username1 || username2) return MTMFLIX_NULL_ARGUMENT;
-    if (!mtmflix || !username1 || username2)
-        return MTMFLIX_NULL_ARGUMENT;
+    if (!mtmflix || !username1 || !username2) return MTMFLIX_NULL_ARGUMENT;
     char* newUsername1 = malloc(strlen(username1));
     strcpy(newUsername1, username1);
     char* newUsername2 = malloc(strlen(username2));
@@ -149,8 +152,6 @@ MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1,
     User ourUser = mapGet(mtmflix->userList, newUsername1);
     User friend = mapGet(mtmflix->userList, newUsername2);
     if (!ourUser || !friend) return MTMFLIX_USER_DOES_NOT_EXIST;
-    if (!ourUser || !friend)
-        return MTMFLIX_USER_DOES_NOT_EXIST;
     userRemoveFriend(ourUser, friend);
     mapPut(mtmflix->userList, newUsername1, ourUser);
     return MTMFLIX_SUCCESS;
@@ -162,29 +163,36 @@ MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputSt
 
     const char* sorted_genres[] = { "COMEDY", "CRIME", "DOCUMENTARY", "DRAMA",
                    "HORROR", "MYSTERY", "ROMANCE", "SCIENCE_FICTION"} ;
-
+    Map series_list = mapCopy(mtmflix->seriesList);
+    //printf("\nmtmflix->seriesList:\n");
+    //printList(mtmflix->seriesList);
     for(int i=0; i<GENRES_NUM; i++){
         //printf("%s\n",sorted_genres[i]);
-        Map genre_list = getAllGenreSeries(mtmflix->seriesList,
-                                              sorted_genres[i], seriesNum);
+        Map genre_list = getAllGenreSeries(series_list, sorted_genres[i], seriesNum);
+
+        //printf("\n%s:\n",sorted_genres[i]);
+        //printList(genre_list);
         int list_size = mapGetSize(genre_list);
         if(mapGetSize(genre_list) <= 0) continue;
         //printList(genre_list);
         for(int j=0; (j<seriesNum || seriesNum ==0) && j< list_size; j++){
             char* ptr = mapGetFirst(genre_list);
-            char* min_name = ptr;
+            char* min_name = malloc(sizeof(char)*(strlen(ptr)+1));
+            strcpy(min_name, ptr);
             while(ptr){
                 if(strcmp(ptr, min_name) < 0){
-                    min_name = ptr;
+                    min_name = realloc(min_name, sizeof(char)*(strlen(ptr)+1));
+                    strcpy(min_name, ptr);
                 }
                 ptr = mapGetNext(genre_list);
             }
             mapRemove(genre_list, min_name);
-            //printf("remove %s\n",min_name);
-            //printList(genre_list);
-            Series series = mapGet(mtmflix->seriesList, min_name);
+
+            Series series = mapGet(mtmflix->seriesList, (MapKeyElement)min_name);
             const char* output = printSeries(series);
             fprintf(outputStream,output);
+
+            free(min_name);
         }
         mapDestroy(genre_list);
     }
@@ -195,23 +203,37 @@ MtmFlixResult mtmFlixReportUsers(MtmFlix mtmflix, FILE* outputStream){
 
     Map user_name = mapCopy(mtmflix->userList);
     int user_num = mapGetSize(mtmflix->userList);
+
     if(user_num<=0) return MTMFLIX_NO_USERS;
 
     for(int j=0; j<user_num; j++){
         char* ptr = mapGetFirst(user_name);
-        char* min_name = ptr;
+        if(!ptr) return MTMFLIX_OUT_OF_MEMORY;
+        char* min_name = malloc(sizeof(char)*(1+strlen(ptr)));
+        strcpy(min_name, ptr);
+
+
+
         while(ptr) {
             if (strcmp(ptr, min_name) < 0) {
-                min_name = ptr;
+                min_name = realloc(min_name, sizeof(char)*(strlen(ptr)+1));
+                strcpy(min_name,ptr);
             }
             ptr = mapGetNext(user_name);
         }
+
         mapRemove(user_name, min_name);
+
         User user = mapGet(mtmflix->userList, min_name);
-        fputs(printUser(user), outputStream);
+        const char* output = printUser(user);
+
+        //printf("output:\n%s\n",output);
+        fprintf(outputStream,output);
+        free(min_name);
     }
     return MTMFLIX_SUCCESS;
 }
+
 Map GetUserList(MtmFlix mtmflix){
     return mtmflix->userList;
 }
@@ -327,7 +349,7 @@ static bool checkName(const char* username) {
     }
     return true;
 }
-
+/*
 void printU(MtmFlix mtmflix){
     Map usersList = GetUserList(mtmflix);
     char* ptr = mapGetFirst(usersList);
@@ -347,7 +369,7 @@ void printS(MtmFlix mtmflix) {
         ptr = mapGetNext(seriesList);
     }
     printf("\n");
-}
+}*/
 /*static void printList(Map list){
     if(!list) return;
     char* ptr = mapGetFirst(list);
@@ -355,7 +377,6 @@ void printS(MtmFlix mtmflix) {
         printf("%s\n",ptr);
         ptr = mapGetNext(list);
     }
-    printf("\n\n");
 }
 static void printArr(const char** arr, int n){
     if(!arr) return;

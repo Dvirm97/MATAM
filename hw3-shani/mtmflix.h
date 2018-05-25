@@ -3,9 +3,6 @@
 
 #include <stdio.h>
 #include "mtm_ex3.h"
-#include "map.h"
-
-/* This is here to help you. The real definitions are in mtm_ex3.h */
 
 /*typedef enum {
 	MTMFLIX_SUCCESS,
@@ -40,17 +37,9 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age);
 MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username);
 MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1, const char* username2);
 MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1, const char* username2);
-MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username, int count, FILE* outputStream);
+MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, const char* username, int count, FILE* outputStream);
 
 MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream);
 MtmFlixResult mtmFlixReportUsers(MtmFlix mtmflix, FILE* outputStream);
-
-Map GetSeriesList(MtmFlix mtmflix);
-Map GetUserList(MtmFlix mtmflix);
-
-void printS(MtmFlix mtmflix);
-void printU(MtmFlix mtmflix);
-
-
 
 #endif /* MTMFLIX_H_ */
