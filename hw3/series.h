@@ -14,18 +14,14 @@ int seriesCompareNamesForSet(MapKeyElement series1, MapKeyElement series2);
 int seriesCompareGenres(Genre genre1, Genre genre2);
 Series createSeries(const char* name, int episodesNum,
                     Genre genre, int* ages, int episodesDuration);
+char* seriesGetName(Series series);
 int* seriesGetAges(Series series);
+const char* printSeries(const char* series_name, Series series);
 const char* seriesGetGenre(Series series);
 Series createSeries(const char* name, int episodesNum,
                     Genre genre, int* ages, int episodesDuration);
-int* seriesGetAges(Series series);
-<<<<<<< HEAD
-const char* printSeries(Series series);
-
-
-=======
+int seriesGetEpisodeDuration(Series series);
 /*const char* genres[] = { "SCIENCE_FICTION", "DRAMA", "COMEDY", "CRIME",
                            "MYSTERY", "DOCUMENTARY", "ROMANCE", "HORROR"};
  */
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
 #endif //HW3_SERIES_H

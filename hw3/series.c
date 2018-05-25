@@ -53,28 +53,14 @@ int seriesCompareNames(MapKeyElement name1, MapKeyElement name2){
 }
 int seriesCompareNamesForSet(MapKeyElement series1, MapKeyElement series2) {
     return strcmp(((Series)series1)->name, ((Series)series2)->name);
-<<<<<<< HEAD
-}
-Series createSeries(const char* name, int episodesNum,
-                               Genre genre, int* ages, int episodesDuration) {
-    if(!name) return NULL;
-    Series series = malloc(sizeof(*series));
-    if(!series) return NULL;
-    series->name = malloc(sizeof(char)*(strlen(name)+1));
-    if(!series->name){
-        free(series);
-        return NULL;
-    }
-=======
 }
 int seriesCompareGenres(Genre genre1, Genre genre2){
     return strcmp(xstr(genre1), xstr(genre2));
 }
 Series createSeries(const char* name, int episodesNum,
-                               Genre genre, int* ages, int episodesDuration) {
+                    Genre genre, int* ages, int episodesDuration) {
     Series series = malloc(sizeof(series));
     series->name = malloc(strlen(name)+1);
->>>>>>> 606ac3901869c2be0c2b542760f17a6cf4d51854
     strcpy(series->name, name);
     series->episodesNum = episodesNum;
     series->genre = genre;
@@ -82,27 +68,29 @@ Series createSeries(const char* name, int episodesNum,
         series->ages = NULL;
     }
     else {
-        series->ages = malloc(sizeof(int) * 2);
-    }
-    if(series->ages && ages){
+        series->ages = malloc(sizeof(int)*2);
         series->ages[0] = ages[0];
         series->ages[1] = ages[1];
     }
     series->episodeDuration = episodesDuration;
     return series;
 }
+char* seriesGetName(Series series) {
+    return series->name;
+}
 int* seriesGetAges(Series series) {
     return series->ages;
 }
 
-const char* printSeries(Series series) {
-    const char* genres[] = { "SCIENCE_FICTION", "DRAMA", "COMEDY", "CRIME",
-                             "MYSTERY", "DOCUMENTARY", "ROMANCE", "HORROR"};
-    return mtmPrintSeries(series->name, genres[(int)series->genre]);
+const char* printSeries(const char* series_name, Series series) {
+    if(!series) return series_name;
+    return mtmPrintSeries(series->name, xstr(series->genre));
 }
 const char* seriesGetGenre(Series series){
-    const char* genres[] = { "SCIENCE_FICTION", "DRAMA", "COMEDY", "CRIME",
-                             "MYSTERY", "DOCUMENTARY", "ROMANCE", "HORROR"};
     if(!series) return NULL;
-    return genres[(int)series->genre];
+    return xstr(series->genre);
+}
+int seriesGetEpisodeDuration(Series series) {
+    if (!series) return NULL;
+    return series->episodeDuration;
 }
