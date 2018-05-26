@@ -307,7 +307,7 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username,
     if (count == 0 || count > size) {
         numOfSeries = size;
     }
-    Series series = mapGetFirst(mtmflix->seriesList);
+    Series series = mapGet(mtmflix->seriesList, mapGetFirst(mtmflix->seriesList));
     for (int i=0; i < numOfSeries; i++) {
         Recommended recommended = malloc(sizeof(Recommended));
 
@@ -315,10 +315,12 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username,
         recommended->points = calculatePoints(mtmflix, username, series);
         if (!recommended->points)
             listInsertLast(recommendedList, recommended);
-        series = mapGetNext(mtmflix->seriesList);
+        if (i < numOfSeries - 1)
+            series = mapGet(mtmflix->seriesList, mapGetNext(mtmflix->seriesList));
     }
     listSort(recommendedList, sortRecommended);
-    series = listGetFirst(recommendedList);
+    Recommended recommended = listGetFirst(recommendedList);
+    series = recommended->series;
     while (series) {
         printSeries(seriesGetName(series), series); //...
         series = listGetNext(recommendedList);
