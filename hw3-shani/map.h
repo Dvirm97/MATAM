@@ -239,6 +239,6 @@ MapResult mapClear(Map map);
 #define MAP_FOREACH(type,iterator,map) \
 	for(type iterator = (type) mapGetFirst(map) ; \
 		iterator ;\
-		iterator = mapGetNext(map))
+        iterator = mapGetNext(map))
 
 #endif /* MAP_H_ */

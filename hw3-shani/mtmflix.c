@@ -61,9 +61,17 @@ MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username) {
     if (!mtmflix || !username) return MTMFLIX_NULL_ARGUMENT;
     if (!checkName(username)) return MTMFLIX_USER_DOES_NOT_EXIST;
     if (!mtmflix->userList) return MTMFLIX_NO_USERS;
+
+    Map users_list = mapCopy(mtmflix->userList);
+    MAP_FOREACH(char*, friend, users_list){
+        mtmFlixRemoveFriend(mtmflix, friend, username);
+    }
+
+    free(users_list);
     MapResult result = mapRemove(mtmflix->userList, (char*)username);
     if(result == MAP_ITEM_DOES_NOT_EXIST) return MTMFLIX_USER_DOES_NOT_EXIST;
     else if (result == MAP_NULL_ARGUMENT) return MTMFLIX_NULL_ARGUMENT;
+
     return MTMFLIX_SUCCESS;
 }
 
@@ -86,6 +94,14 @@ MtmFlixResult mtmFlixRemoveSeries(MtmFlix mtmflix, const char* name) {
     if(!checkName(name)) return MTMFLIX_SERIES_DOES_NOT_EXIST;
     if(!mapContains(mtmflix->seriesList, (char*)name))
         return MTMFLIX_SERIES_DOES_NOT_EXIST;
+
+    Map users_list = mapCopy(mtmflix->userList);
+    MAP_FOREACH(char*, user, users_list){
+        mtmFlixSeriesLeave(mtmflix, user, name);
+    }
+
+    free(users_list);
+
     MapResult result = mapRemove(mtmflix->seriesList, (char*)name);
     if(result == MAP_ITEM_DOES_NOT_EXIST) return MTMFLIX_USER_DOES_NOT_EXIST;
     else if (result == MAP_NULL_ARGUMENT) return MTMFLIX_NULL_ARGUMENT;
@@ -145,15 +161,16 @@ MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1,
 MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1,
                                const char* username2) {
     if (!mtmflix || !username1 || !username2) return MTMFLIX_NULL_ARGUMENT;
-    char* newUsername1 = malloc(strlen(username1));
-    strcpy(newUsername1, username1);
-    char* newUsername2 = malloc(strlen(username2));
-    strcpy(newUsername2, username2);
-    User ourUser = mapGet(mtmflix->userList, newUsername1);
-    User friend = mapGet(mtmflix->userList, newUsername2);
+    User ourUser = mapGet(mtmflix->userList, (char*)username1);
+    User friend = mapGet(mtmflix->userList, (char*)username2);
     if (!ourUser || !friend) return MTMFLIX_USER_DOES_NOT_EXIST;
+    //printf("\n%s\nbefore removal:\n%s\n",username1,printUser(ourUser));
     userRemoveFriend(ourUser, friend);
-    mapPut(mtmflix->userList, newUsername1, ourUser);
+    //printf("\nafter removal:\n%s\n",printUser(ourUser));
+    //printf("\nbefore copy:\n%s\n",printUser(mapGet(mtmflix->userList, (char*)username1)));
+    mapPut(mtmflix->userList, (char*)username1, ourUser);
+    //printf("\nafter copy:\n%s\n", printUser(mapGet(mtmflix->userList, (char*)username1)));
+
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream){
@@ -163,12 +180,11 @@ MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputSt
 
     const char* sorted_genres[] = { "COMEDY", "CRIME", "DOCUMENTARY", "DRAMA",
                    "HORROR", "MYSTERY", "ROMANCE", "SCIENCE_FICTION"} ;
-    Map series_list = mapCopy(mtmflix->seriesList);
     //printf("\nmtmflix->seriesList:\n");
     //printList(mtmflix->seriesList);
     for(int i=0; i<GENRES_NUM; i++){
         //printf("%s\n",sorted_genres[i]);
-        Map genre_list = getAllGenreSeries(series_list, sorted_genres[i], seriesNum);
+        Map genre_list = getAllGenreSeries(mtmflix->seriesList, sorted_genres[i], seriesNum);
 
         //printf("\n%s:\n",sorted_genres[i]);
         //printList(genre_list);
@@ -349,14 +365,14 @@ static bool checkName(const char* username) {
     }
     return true;
 }
-/*
-void printU(MtmFlix mtmflix){
-    Map usersList = GetUserList(mtmflix);
-    char* ptr = mapGetFirst(usersList);
+
+/*void printU(Map map){
+    //Map usersList = GetUserList(mtmflix);
+    char* ptr = mapGetFirst(map);
     while(ptr){
-        User user = mapGet(usersList, ptr);
-        printf("%s\n",printUser(user));
-        ptr = mapGetNext(usersList);
+        User user = mapGet(map, ptr);
+        printf("%s:\n%s\n",ptr, printUser(user));
+        ptr = mapGetNext(map);
     }
     printf("\n");
 }

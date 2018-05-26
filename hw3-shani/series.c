@@ -77,6 +77,7 @@ void deleteSeries(MapDataElement series) { //Do it better
     free(series);
 }
 void deleteSeriesSet(SetElement series) { //Do it better
+    if(!series) return;
     free(((Series)series)->name);
     free(series);
 }
@@ -86,8 +87,8 @@ void seriesDeleteName(MapKeyElement name) {
 int seriesCompareNames(MapKeyElement name1, MapKeyElement name2){
     return strcmp((char*)name1, (char*)name2);
 }
-int seriesSetCompareNames(SetElement name1, SetElement name2){
-    return strcmp((char*)name1, (char*)name2);
+int seriesSetCompareNames(SetElement series1, SetElement series2){
+    return strcmp(((Series)series1)->name, ((Series)series2)->name);
 }
 int seriesCompareNamesForSet(MapKeyElement series1, MapKeyElement series2) {
     return strcmp(((Series)series1)->name, ((Series)series2)->name);

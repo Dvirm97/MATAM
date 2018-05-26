@@ -12,7 +12,7 @@ void deleteSeries(MapDataElement user);
 void deleteSeriesSet(SetElement series);
 void seriesDeleteName(MapKeyElement name);
 int seriesCompareNames(MapKeyElement name1, MapKeyElement name2);
-int seriesSetCompareNames(SetElement name1, SetElement name2);
+int seriesSetCompareNames(SetElement series1, SetElement series2);
 int seriesCompareNamesForSet(MapKeyElement series1, MapKeyElement series2);
 int seriesCompareGenres(Genre genre1, Genre genre2);
 Series createSeries(const char* name, int episodesNum,

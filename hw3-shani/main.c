@@ -3,10 +3,12 @@
 #include <windows.h>
 #include "mtmflix.h"
 #include "test_utilities.h"
+#include "map.h"
 #include "user.h"
 #include "mtm_ex3.h"
 #include "series.h"
 #include "list.h"
+#include "set.h"
 #include <stdlib.h>
 #define str(x) #x
 #define xstr(x) str(x)
@@ -251,25 +253,6 @@ bool mtmFlixRemoveSeriesTest() {
 }
 
 bool mtmFlixReportSeriesTest() {
-
-
-      /*char* results[15] ={
-        "MTMFLIX_SUCCESS",
-        "MTMFLIX_OUT_OF_MEMORY",
-        "MTMFLIX_NULL_ARGUMENT",
-        "MTMFLIX_SERIES_ALREADY_EXISTS",
-        "MTMFLIX_SERIES_DOES_NOT_EXIST",
-        "MTMFLIX_NO_SERIES",
-        "MTMFLIX_USER_ALREADY_EXISTS",
-        "MTMFLIX_USER_DOES_NOT_EXIST",
-        "MTMFLIX_NO_USERS",
-        "MTMFLIX_USER_ALREADY_FRIEND",
-        "MTMFLIX_USER_NOT_FRIEND",
-        "MTMFLIX_ILLEGAL_VALUE",
-        "MTMFLIX_ILLEGAL_EPISODES_NUM",
-        "MTMFLIX_ILLEGAL_EPISODES_DURATION",
-        "MTMFLIX_ILLEGAL_SERIES_NAME"
-    };*/
     MtmFlix system = mtmFlixCreate();
     FILE* fp = fopen("./mtmFlixReportSeries_test.out", "w");
     ASSERT_TEST(mtmFlixReportSeries(NULL, 0, fp) == MTMFLIX_NULL_ARGUMENT);
@@ -465,6 +448,8 @@ bool mtmFlixAddFriendTest() {
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             "The user Rachel is 22 years old\n";
     char* output = readFile("./mtmFlixAddFriend_test.out");
+
+
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
     // Two-sided friendship
@@ -487,6 +472,7 @@ bool mtmFlixAddFriendTest() {
 }
 
 bool mtmFlixRemoveFriendTest() {
+
     MtmFlix system = mtmFlixCreate();
     mtmFlixAddUser(system, "Chandler", 23);
     mtmFlixAddUser(system, "Rachel", 22);
@@ -508,6 +494,9 @@ bool mtmFlixRemoveFriendTest() {
     mtmFlixAddFriend(system, "Phoebe", "Rachel");
     mtmFlixAddFriend(system, "Phoebe", "Chandler");
 
+
+    mtmFlixRemoveFriend(system, "Rachel", "Chandler");
+    //printf("\nres:%s\n",results[res]);
     // Valid input
     ASSERT_TEST(mtmFlixRemoveFriend(system, "Rachel", "Chandler") == MTMFLIX_SUCCESS);
     ASSERT_TEST(mtmFlixRemoveFriend(system, "Rachel", "Chandler") == MTMFLIX_SUCCESS);
@@ -632,6 +621,24 @@ bool mtmFlixGetRecommendationsTest() {
 }
 */
 bool mtmFlixRemoveUserTestAdvanced() {
+    /*char* results[15] ={
+         "MTMFLIX_SUCCESS",
+         "MTMFLIX_OUT_OF_MEMORY",
+         "MTMFLIX_NULL_ARGUMENT",
+         "MTMFLIX_SERIES_ALREADY_EXISTS",
+         "MTMFLIX_SERIES_DOES_NOT_EXIST",
+         "MTMFLIX_NO_SERIES",
+         "MTMFLIX_USER_ALREADY_EXISTS",
+         "MTMFLIX_USER_DOES_NOT_EXIST",
+         "MTMFLIX_NO_USERS",
+         "MTMFLIX_USER_ALREADY_FRIEND",
+         "MTMFLIX_USER_NOT_FRIEND",
+         "MTMFLIX_ILLEGAL_VALUE",
+         "MTMFLIX_ILLEGAL_EPISODES_NUM",
+         "MTMFLIX_ILLEGAL_EPISODES_DURATION",
+         "MTMFLIX_ILLEGAL_SERIES_NAME"
+     };*/
+
     MtmFlix system = mtmFlixCreate();
     mtmFlixAddUser(system, "Chandler", 23);
     mtmFlixAddUser(system, "Rachel", 22);
@@ -646,6 +653,7 @@ bool mtmFlixRemoveUserTestAdvanced() {
 
     mtmFlixRemoveUser(system, "Rachel");
 
+    //printf("\nres:%s\n",results[res]);
     FILE* fp = fopen("./mtmflixRemoveUser_testAdvanced.out", "w");
     mtmFlixReportUsers(system, fp);
     fclose(fp);
@@ -658,6 +666,7 @@ bool mtmFlixRemoveUserTestAdvanced() {
             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             "The user Shalev is 16 years old\n";
     char* output = readFile("./mtmflixRemoveUser_testAdvanced.out");
+   // printf("\noutput:\n%s",output);
     ASSERT_TEST(strcmp(output, test1_valid) == 0);
 
     mtmFlixDestroy(system);

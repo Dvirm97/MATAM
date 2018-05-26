@@ -19,7 +19,7 @@ struct user {
 typedef char*(*GetNameFunction)(void*);
 //static void printList(List list);
 //static void printSetUsers(Set set);
-static void printSetSeries(Set set);
+//static void printSetSeries(Set set);
 static List set2list(Set set, GetNameFunction getName);
 MapDataElement copyUser(MapDataElement src){
     if (!src) {
@@ -68,9 +68,8 @@ void deleteUser(MapDataElement user) { //Do it better
     free(user);
 }
 void deleteUserSet(SetElement user) { //Do it better
-    if (!user)
-        return;
-    userDestroy(user);
+    if (!user) return;
+    userDestroy((User)user);
 }
 void userDeleteName(MapKeyElement name) {
     free(name);
@@ -78,8 +77,8 @@ void userDeleteName(MapKeyElement name) {
 int userCompareNames(MapKeyElement name1, MapKeyElement name2) {
     return strcmp((char*)name1, (char*)name2);
 }
-int userSetCompareNames(SetElement name1, SetElement name2) {
-    return strcmp((char*)name1, (char*)name2);
+int userSetCompareNames(SetElement user1, SetElement user2) {
+    return strcmp(((User)user1)->username, ((User)user2)->username);
 }
 
 int userCompareNamesForSet(MapKeyElement user1, MapKeyElement user2) {
@@ -111,18 +110,18 @@ MtmFlixResult userAddFavorite(User user, Series series) {
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult userRemoveFavorite(User user, Series series) {
-     char* results[5] = {"SET_SUCCESS",
+     /*char* results[5] = {"SET_SUCCESS",
                         "SET_OUT_OF_MEMORY",
                         "SET_NULL_ARGUMENT",
                         "SET_ITEM_ALREADY_EXISTS",
-                        "SET_ITEM_DOES_NOT_EXIST"};
+                        "SET_ITEM_DOES_NOT_EXIST"};*/
     if (!user || !series)
         return MTMFLIX_NULL_ARGUMENT;
-    printf("\nfavorites:\n");
-    printSetSeries(user->favorites);
-    SetResult res = setRemove(user->favorites, series);
-    printf("\nfavorites: %s\n",results[res]);
-    printSetSeries(user->favorites);
+    //printf("\nfavorites:\n");
+    //printSetSeries(user->favorites);
+    setRemove(user->favorites, series);
+    //printf("\nfavorites: %s\n",results[res]);
+    //printSetSeries(user->favorites);
     return MTMFLIX_SUCCESS;
 }
 MtmFlixResult userAddFriend(User user, User friend) {
@@ -134,7 +133,12 @@ MtmFlixResult userAddFriend(User user, User friend) {
 MtmFlixResult userRemoveFriend(User user, User friend) {
     if (!user || !friend)
         return MTMFLIX_NULL_ARGUMENT;
+
+    //printf("\n%s\nbefore removal:\n",user->username);
+    //printSetUsers(user->friends);
     setRemove(user->friends, friend);
+    //printf("\nafter removal:\n");
+    //printSetUsers(user->friends);
     return MTMFLIX_SUCCESS;
 }
 static List set2list(Set set, GetNameFunction getName){
@@ -162,13 +166,14 @@ const char* printUser(User user) {
     //printf("done\n\n");
 
     const char* output = mtmPrintUser(user->username, user->age, friends, favorites);
-    printf("%s",output);
+    //printf("%s",output);
     //const char* output = mtmPrintUser(user->username, user->age, friends, favorites);
     //if(!output) printf("output: null\n");
     //else printf("output:\n%s\ndone\n",output);
     return output;
 }
 void userDestroy(User user){
+    if(!user) return;
     setDestroy(user->favorites);
     setDestroy(user->friends);
     free(user);
@@ -201,7 +206,7 @@ ListElement copyUserName(ListElement str){
         ptr = setGetNext(set);
     }
 }
-*/
+
 static void printSetSeries(Set set){
     if(!set) return;
     Series ptr = setGetFirst(set);
@@ -209,4 +214,4 @@ static void printSetSeries(Set set){
         printf("%s\n",seriesGetName(ptr));
         ptr = setGetNext(set);
     }
-}
+}*/

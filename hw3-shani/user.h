@@ -14,7 +14,7 @@ void deleteUser(MapDataElement user);
 void deleteUserSet(SetElement user);
 void userDeleteName(MapKeyElement name);
 int userCompareNames(MapKeyElement name1, MapKeyElement name2);
-int userSetCompareNames(SetElement name1, SetElement name2);
+int userSetCompareNames(SetElement user1, SetElement user2);
 int userCompareNamesForSet(MapKeyElement user1, MapKeyElement user2);
 User createUser(const char* username, int age);
 MtmFlixResult userAddFavorite(User user, Series series);

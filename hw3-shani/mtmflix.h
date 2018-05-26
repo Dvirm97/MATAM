@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include "mtm_ex3.h"
+#include "map.h"
 
 /*typedef enum {
 	MTMFLIX_SUCCESS,
@@ -41,5 +42,6 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, const char* username, i
 
 MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream);
 MtmFlixResult mtmFlixReportUsers(MtmFlix mtmflix, FILE* outputStream);
+void printU(Map map);
 
 #endif /* MTMFLIX_H_ */
