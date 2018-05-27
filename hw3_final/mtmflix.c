@@ -371,7 +371,10 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username,
     }
     listSort(recommendedList, sortRecommended);
     Recommended recommended = listGetFirst(recommendedList);
-    series = recommended->series;
+    if (recommended)
+        series = recommended->series;
+    else 
+        series = NULL;
     while (series) {
         fprintf(outputStream, printSeries(series)); //...
         series = listGetNext(recommendedList);
