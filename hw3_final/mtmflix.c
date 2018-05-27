@@ -132,9 +132,11 @@ MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name, int episodesNu
 MtmFlixResult mtmFlixRemoveSeries(MtmFlix mtmflix, const char* name) {
     if(!mtmflix || !name) return MTMFLIX_NULL_ARGUMENT;
     if(!checkName(name)) return MTMFLIX_SERIES_DOES_NOT_EXIST;
+    if (!mtmflix->seriesList)
+        return MTMFLIX_NO_SERIES;
     if(!mapContains(mtmflix->seriesList, (char*)name))
         return MTMFLIX_SERIES_DOES_NOT_EXIST;
-    Map seriesMapAux = mapCopy(mtmflix->seriesList);
+    Map seriesMapAux = mapCopy(mtmflix->userList);
     MAP_FOREACH(char*, user, seriesMapAux){
         mtmFlixSeriesLeave(mtmflix, user, name);
     }
@@ -351,8 +353,8 @@ static Map getAllGenreSeries(Map seriesList, const char* genre, int seriesNum){
 MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username,
                                         int count, FILE* outputStream) {
     if (!mtmflix || !username || !outputStream) return MTMFLIX_NULL_ARGUMENT;
-    if (count < 0) return MTMFLIX_ILLEGAL_NUMBER;
     if (!mapContains(mtmflix->userList, username)) return MTMFLIX_USER_DOES_NOT_EXIST;
+    if (count < 0) return MTMFLIX_ILLEGAL_NUMBER;
     List recommendedList = listCreate(copyRecommended, freeRecommended);
     int numOfSeries = count;
     int size = mapGetSize(mtmflix->seriesList);
@@ -373,12 +375,13 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username,
     Recommended recommended = listGetFirst(recommendedList);
     if (recommended)
         series = recommended->series;
-    else 
+    else
         series = NULL;
     while (series) {
         fprintf(outputStream, printSeries(series)); //...
         series = listGetNext(recommendedList);
     }
+    listDestroy(recommendedList);
     return MTMFLIX_SUCCESS;
 }
 
@@ -406,8 +409,10 @@ ListElement copyRecommended(ListElement src) {
 }
 
 void freeRecommended(ListElement src) {
+    if (!src) return;
     Recommended res = (Recommended)src;
-    free(res->series);
+    if (res->series)
+        free (res->series);
     free(res);
 }
 
