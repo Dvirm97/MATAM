@@ -365,7 +365,7 @@ MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username,
 
         recommended->series = series;
         recommended->points = calculatePoints(mtmflix, username, series);
-        if (!recommended->points)
+        if (recommended->points != 0)
             listInsertLast(recommendedList, recommended);
         series = mapGet(mtmflix->seriesList, mapGetNext(mtmflix->seriesList));
     }
