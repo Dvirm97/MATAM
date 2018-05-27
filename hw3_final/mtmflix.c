@@ -64,6 +64,8 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age) {
         return MTMFLIX_NULL_ARGUMENT;
     if(!checkName(username))
         return MTMFLIX_ILLEGAL_USERNAME;
+    if (age > MTM_MAX_AGE || age < MTM_MIN_AGE)
+        return MTMFLIX_ILLEGAL_AGE;
     if(mapContains(mtmflix->userList, (char*)username))
         return MTMFLIX_USERNAME_ALREADY_USED;
     User user = createUser((char*)username, age);
