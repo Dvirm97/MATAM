@@ -187,7 +187,7 @@ int userCountFriendsLikes(User user, Series series) {
     int likeCounter = 0;
     User aFriend = setGetFirst(user->friends);
     while (aFriend) {
-        if (setIsIn(aFriend->favorites, series))
+        if (userLikeSeries(aFriend, series))
             likeCounter++;
         aFriend = setGetNext(user->friends);
     }
