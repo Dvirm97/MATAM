@@ -118,6 +118,12 @@ MtmFlixResult mtmFlixAddSeries(MtmFlix mtmflix, const char* name, int episodesNu
         return MTMFLIX_ILLEGAL_EPISODES_NUM;
     if(episodesDuration <= 0)
         return MTMFLIX_ILLEGAL_EPISODES_DURATION;
+    if (ages) {
+        if (ages[0] < MTM_MIN_AGE)
+            ages[0] = MTM_MIN_AGE;
+        if (ages[1] > MTM_MAX_AGE)
+            ages[1] = MTM_MAX_AGE;
+    }
     Series series = createSeries(name, episodesNum, genre, ages,
                                  episodesDuration);
     mapPut(mtmflix->seriesList, (char*)name, series);
