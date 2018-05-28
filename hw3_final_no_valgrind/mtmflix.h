@@ -4,11 +4,6 @@
 #include <stdio.h>
 #include "mtm_ex3.h"
 
-<<<<<<< HEAD
-=======
-/* This is here to help you. The real definitions are in mtm_ex3.h */
-
->>>>>>> f73708eab1fcafc29b2f972be0ae51ec6485d052
 /*typedef enum {
 	MTMFLIX_SUCCESS,
 	MTMFLIX_OUT_OF_MEMORY,
@@ -42,11 +37,7 @@ MtmFlixResult mtmFlixAddUser(MtmFlix mtmflix, const char* username, int age);
 MtmFlixResult mtmFlixRemoveUser(MtmFlix mtmflix, const char* username);
 MtmFlixResult mtmFlixAddFriend(MtmFlix mtmflix, const char* username1, const char* username2);
 MtmFlixResult mtmFlixRemoveFriend(MtmFlix mtmflix, const char* username1, const char* username2);
-<<<<<<< HEAD
 MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, const char* username, int count, FILE* outputStream);
-=======
-MtmFlixResult mtmFlixGetRecommendations(MtmFlix mtmflix, char* username, int count, FILE* outputStream);
->>>>>>> f73708eab1fcafc29b2f972be0ae51ec6485d052
 
 MtmFlixResult mtmFlixReportSeries(MtmFlix mtmflix, int seriesNum, FILE* outputStream);
 MtmFlixResult mtmFlixReportUsers(MtmFlix mtmflix, FILE* outputStream);
