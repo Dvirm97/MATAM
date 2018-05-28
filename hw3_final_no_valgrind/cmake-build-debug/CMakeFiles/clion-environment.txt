@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+ToolSet: 2.10.0@C:\cygwin64
+=======
+ToolSet: w64 4.0@C:\TDM-GCC-64
+>>>>>>> f73708eab1fcafc29b2f972be0ae51ec6485d052
+Options: 
+
+Options:

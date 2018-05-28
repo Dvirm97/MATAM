@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+C:\Users\shani\.CLion2017.3\system\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /cygdrive/c/Users/shani/CLionProjects/hw3_final
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug
+=======
+"C:\Program Files\JetBrains\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\user\CLionProjects\hw3
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/user/CLionProjects/hw3/cmake-build-debug
+>>>>>>> f73708eab1fcafc29b2f972be0ae51ec6485d052

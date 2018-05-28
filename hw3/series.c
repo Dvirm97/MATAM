@@ -84,7 +84,7 @@ int* seriesGetAges(Series series) {
 
 const char* printSeries(const char* series_name, Series series) {
     if(!series) return series_name;
-    return mtmPrintSeries(series->name, xstr(series->genre));
+    return mtmPrintSeries(series_name, xstr(series->genre));
 }
 const char* seriesGetGenre(Series series){
     if(!series) return NULL;
