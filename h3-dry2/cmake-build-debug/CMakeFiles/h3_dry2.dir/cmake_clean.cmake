@@ -1,8 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/h3_dry2.dir/main.c.obj"
+  "CMakeFiles/h3_dry2.dir/main.c.o"
   "h3_dry2.pdb"
   "h3_dry2.exe"
-  "h3_dry2.exe.manifest"
   "libh3_dry2.dll.a"
 )
 

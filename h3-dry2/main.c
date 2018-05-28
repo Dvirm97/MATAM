@@ -2,23 +2,29 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
 typedef struct node_t* Node;
 struct node_t {
     int n;
     Node next;
 };
 
-typedef bool (*boolFunction)(int);
+typedef bool (*BoolFunction)(int);
 
-Node listFilter(Node list, boolFunction condition);
+void DestroyList(Node list);
+Node CopyList(Node list);
+
+Node ListFilter(Node list, BoolFunction Condition);
+
+Node CoolElements(Node* lists, int len);
+bool IsDivisableBy3(int n);
+bool IsDivisableBy2(int n);
+bool IsDivisableBy1(int n);
+
+
 bool isEven(int n);
-void destroyList(Node list);
-Node listCreate(int arr[], int len);
-Node coolElements(Node* lists, int len);
-bool isDivisableBy3(int n);
-bool isDivisableBy2(int n);
-bool isDivisableBy1(int n);
+
+Node listCreate(const int* arr, int len);
+
 
 int main() {
     int arr[3][6] = {{1,2,3,4,5,6}
@@ -30,66 +36,41 @@ int main() {
         lists[i] = listCreate(arr[i], 6);
     }
 
-    Node new_list = coolElements(lists, 3);
+    Node list1 = ListFilter(NULL, isEven);
+    list1 = ListFilter(lists[0], NULL);
 
+    list1 = CoolElements(NULL, 1);
+    list1 = CoolElements(lists, 0);
+    list1 = CoolElements(lists, -1);
+    DestroyList(NULL);
+
+
+    Node new_list = CoolElements(lists, 3);
     Node ptr = new_list;
-
     while(ptr){
         printf("%d ", ptr->n);
         ptr = ptr->next;
     }
 
-    destroyList(new_list);
-    for(int i =0; i<3; i++){
-        destroyList(lists[i]);
+    for(int i = 0; i<3; i++) {
+        DestroyList(lists[i]);
     }
+
+    printf("\nafter:\n");
+    ptr = new_list;
+    while(ptr){
+        printf("%d ", ptr->n);
+        ptr = ptr->next;
+    }
+
+    DestroyList(new_list);
 
     return 0;
 }
-
-Node listFilter(Node list, boolFunction condition){
-    if(!list || !condition) return NULL;
-    Node new_list = NULL;
-    Node ptr = list;
-    Node prev = NULL;
-    while(ptr){
-        if(condition(ptr->n)){
-            Node node = malloc(sizeof(*node));
-            if(!node){
-                destroyList(new_list);
-                return NULL;
-            }
-            node->n = ptr->n;
-            node->next = NULL;
-            if(!new_list){
-                new_list = node;
-                prev = node;
-            }
-            else{
-                prev->next = node;
-                prev = node;
-            }
-        }
-        ptr = ptr->next;
-    }
-    return new_list;
-}
-
-bool isEven(int n){
-    if(n%2 == 0) return true;
-    return false;
-}
-
-void destroyList(Node list){
-    while(list){
-        Node toDelete = list;
-        list = list->next;
-        free(toDelete);
-    }
-}
-
-Node listCreate(int* arr, int len){
-    Node list = NULL, prev = NULL;
+/*
+Node listCreate(const int* arr, int len){
+    if(!arr || len <=0) return NULL;
+    Node list = NULL, last_node = NULL;
     for(int i=0; i<len; i++){
         Node node = malloc(sizeof(*node));
         node->n = arr[i];
@@ -97,63 +78,153 @@ Node listCreate(int* arr, int len){
 
         if(!list){
             list = node;
-            prev = node;
+            last_node = node;
         }
         else{
-            prev->next = node;
-            prev = node;
+            last_node->next = node;
+            last_node = node;
         }
     }
     return list;
 }
+*/
 
-Node coolElements(Node* lists, int len){
-    if(!lists) return NULL;
+Node ListFilter(Node list, BoolFunction Condition){
+    // Check input
+    if(!list || !Condition) return NULL;
+
+    // Define pointers to list
+    Node new_list = NULL, ptr = list, last_node = NULL;
+
+    // Go thorough each node in list
+    while(ptr){
+
+        // Check condition
+        if(Condition(ptr->n)){
+
+            // Make a new node
+            Node node = malloc(sizeof(*node));
+            if(!node){
+                DestroyList(new_list);
+                return NULL;
+            }
+            node->n = ptr->n;
+            node->next = NULL;
+
+            // Add node to list
+            if(!new_list){
+                new_list = node;
+                last_node = node;
+            } else{
+                last_node->next = node;
+                last_node = node;
+            }
+        }
+
+        ptr = ptr->next;
+    }
+
+    return new_list;
+}
+
+
+Node CoolElements(Node* lists, int len){
+    // Check input
+    if(!lists || len <= 0) return NULL;
+
+    // Define pointers
     Node new_list = NULL, ptr = NULL;
-    for(int i=0; i<len; i++){
-        Node sub_list = NULL;
+
+    // Check each list in array
+    for(int i = 0; i < len; i++){
         if(!lists[i]){
-            destroyList(new_list);
+            DestroyList(new_list);
             return NULL;
         }
-        switch(i%3+1) {
+
+        // Filter current list in array
+        Node sub_list = NULL;
+        switch(i % 3 + 1) {
             case 1:
-                sub_list = listFilter(lists[i], isDivisableBy1);
+                sub_list = ListFilter(lists[i], IsDivisableBy1);
                 break;
             case 2:
-                sub_list = listFilter(lists[i], isDivisableBy2);
+                sub_list = ListFilter(lists[i], IsDivisableBy2);
                 break;
             case 3:
-                sub_list = listFilter(lists[i], isDivisableBy3);
+                sub_list = ListFilter(lists[i], IsDivisableBy3);
                 break;
             default:
                 sub_list = NULL;
+                DestroyList(new_list);
                 break;
         }
         if(!sub_list){
-            destroyList(sub_list);
-            destroyList(new_list);
+            DestroyList(new_list);
             return NULL;
         }
+
+        // Add the filtered list to the new list
         if(!new_list){
-            new_list = sub_list;
-            ptr = sub_list;
+            new_list = CopyList(sub_list);
+            ptr = new_list;
+        } else{
+            ptr->next = CopyList(sub_list);
         }
-        else{
-            ptr->next = sub_list;
-        }
+        DestroyList(sub_list);
+
+        // Adjust pointer to the last node of the new list
         while(ptr->next){
             ptr = ptr->next;
         }
     }
+
     return new_list;
 }
-bool isDivisableBy1(int n){
+
+bool IsDivisableBy1(int n){
     return n % 1 == 0;
 }
-bool isDivisableBy2(int n){
+bool IsDivisableBy2(int n){
     return n % 2 == 0;
 }
-bool isDivisableBy3(int n){
+bool IsDivisableBy3(int n){
     return n % 3 == 0;
 }
+
+Node CopyList(Node list){
+
+    if(!list) return NULL;
+    Node new_list = NULL;
+    Node ptr = list, last_node = new_list;
+    while(ptr){
+        Node node = malloc(sizeof(*node));
+        node->n = ptr->n;
+        node->next = NULL;
+        if(!new_list){
+            new_list = node;
+            last_node = node;
+        }
+        else{
+            last_node->next = node;
+            last_node = last_node->next;
+        }
+        ptr = ptr->next;
+    }
+
+    return new_list;
+}
+void DestroyList(Node list){
+    while(list){
+        Node to_delete = list;
+        list = list->next;
+        free(to_delete);
+    }
+}
+
+/*
+bool isEven(int n){
+    if(n%2 == 0) return true;
+    return false;
+}
+ */

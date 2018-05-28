@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/shani/CLionProjects/h3-dry1/main.c
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+assert.h
+-
+stdbool.h
+-
+
