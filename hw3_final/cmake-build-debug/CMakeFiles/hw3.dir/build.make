@@ -43,10 +43,10 @@ RM = /cygdrive/c/Users/shani/.CLion2017.3/system/cygwin_cmake/bin/cmake.exe -E r
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/shani/CLionProjects/hw3_final
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/hw3.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/hw3.dir/flags.make
 
 CMakeFiles/hw3.dir/main.c.o: CMakeFiles/hw3.dir/flags.make
 CMakeFiles/hw3.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/hw3.dir/main.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/main.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/hw3.dir/main.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/main.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final/main.c
 
 CMakeFiles/hw3.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hw3.dir/main.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/main.c > CMakeFiles/hw3.dir/main.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final/main.c > CMakeFiles/hw3.dir/main.c.i
 
 CMakeFiles/hw3.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hw3.dir/main.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/main.c -o CMakeFiles/hw3.dir/main.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final/main.c -o CMakeFiles/hw3.dir/main.c.s
 
 CMakeFiles/hw3.dir/main.c.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/hw3.dir/main.c.o.provides.build: CMakeFiles/hw3.dir/main.c.o
 
 CMakeFiles/hw3.dir/mtmflix.c.o: CMakeFiles/hw3.dir/flags.make
 CMakeFiles/hw3.dir/mtmflix.c.o: ../mtmflix.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/hw3.dir/mtmflix.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/mtmflix.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/mtmflix.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/hw3.dir/mtmflix.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/mtmflix.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final/mtmflix.c
 
 CMakeFiles/hw3.dir/mtmflix.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hw3.dir/mtmflix.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/mtmflix.c > CMakeFiles/hw3.dir/mtmflix.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final/mtmflix.c > CMakeFiles/hw3.dir/mtmflix.c.i
 
 CMakeFiles/hw3.dir/mtmflix.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hw3.dir/mtmflix.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/mtmflix.c -o CMakeFiles/hw3.dir/mtmflix.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final/mtmflix.c -o CMakeFiles/hw3.dir/mtmflix.c.s
 
 CMakeFiles/hw3.dir/mtmflix.c.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/hw3.dir/mtmflix.c.o.provides.build: CMakeFiles/hw3.dir/mtmflix.c.o
 
 CMakeFiles/hw3.dir/user.c.o: CMakeFiles/hw3.dir/flags.make
 CMakeFiles/hw3.dir/user.c.o: ../user.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/hw3.dir/user.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/user.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/user.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/hw3.dir/user.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/user.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final/user.c
 
 CMakeFiles/hw3.dir/user.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hw3.dir/user.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/user.c > CMakeFiles/hw3.dir/user.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final/user.c > CMakeFiles/hw3.dir/user.c.i
 
 CMakeFiles/hw3.dir/user.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hw3.dir/user.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/user.c -o CMakeFiles/hw3.dir/user.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final/user.c -o CMakeFiles/hw3.dir/user.c.s
 
 CMakeFiles/hw3.dir/user.c.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/hw3.dir/user.c.o.provides.build: CMakeFiles/hw3.dir/user.c.o
 
 CMakeFiles/hw3.dir/series.c.o: CMakeFiles/hw3.dir/flags.make
 CMakeFiles/hw3.dir/series.c.o: ../series.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/hw3.dir/series.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/series.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/series.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/hw3.dir/series.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/hw3.dir/series.c.o   -c /cygdrive/c/Users/shani/CLionProjects/hw3_final/series.c
 
 CMakeFiles/hw3.dir/series.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/hw3.dir/series.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/series.c > CMakeFiles/hw3.dir/series.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /cygdrive/c/Users/shani/CLionProjects/hw3_final/series.c > CMakeFiles/hw3.dir/series.c.i
 
 CMakeFiles/hw3.dir/series.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/hw3.dir/series.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/series.c -o CMakeFiles/hw3.dir/series.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /cygdrive/c/Users/shani/CLionProjects/hw3_final/series.c -o CMakeFiles/hw3.dir/series.c.s
 
 CMakeFiles/hw3.dir/series.c.o.requires:
 
@@ -171,7 +171,7 @@ hw3.exe: CMakeFiles/hw3.dir/build.make
 hw3.exe: ../libmtm.a
 hw3.exe: ../libmtm_ex3.a
 hw3.exe: CMakeFiles/hw3.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable hw3.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable hw3.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hw3.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -191,6 +191,6 @@ CMakeFiles/hw3.dir/clean:
 .PHONY : CMakeFiles/hw3.dir/clean
 
 CMakeFiles/hw3.dir/depend:
-	cd /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles/hw3.dir/DependInfo.cmake --color=$(COLOR)
+	cd /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /cygdrive/c/Users/shani/CLionProjects/hw3_final /cygdrive/c/Users/shani/CLionProjects/hw3_final /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles/hw3.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/hw3.dir/depend
 

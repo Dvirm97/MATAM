@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/main.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles/hw3.dir/main.c.o"
-  "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/mtmflix.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles/hw3.dir/mtmflix.c.o"
-  "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/series.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles/hw3.dir/series.c.o"
-  "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/user.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug/CMakeFiles/hw3.dir/user.c.o"
+  "/cygdrive/c/Users/shani/CLionProjects/hw3_final/main.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles/hw3.dir/main.c.o"
+  "/cygdrive/c/Users/shani/CLionProjects/hw3_final/mtmflix.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles/hw3.dir/mtmflix.c.o"
+  "/cygdrive/c/Users/shani/CLionProjects/hw3_final/series.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles/hw3.dir/series.c.o"
+  "/cygdrive/c/Users/shani/CLionProjects/hw3_final/user.c" "/cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug/CMakeFiles/hw3.dir/user.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

@@ -1,4 +1,4 @@
-C:\Users\shani\.CLion2017.3\system\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind
+C:\Users\shani\.CLion2017.3\system\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /cygdrive/c/Users/shani/CLionProjects/hw3_final
 -- Configuring done
 -- Generating done
--- Build files have been written to: /cygdrive/c/Users/shani/CLionProjects/hw3_final_no_valgrind/cmake-build-debug
+-- Build files have been written to: /cygdrive/c/Users/shani/CLionProjects/hw3_final/cmake-build-debug
