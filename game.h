@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Weapon.h"
 
 #ifndef HW4_GAME_H
 #define HW4_GAME_H
@@ -15,7 +14,7 @@ enum GameStatus{
 
 class Game {
     int maxPlayers;
-    Player* playersArr[];
+    Player** playersArr;
 public:
     explicit Game(int maxPlayers);
     ~Game();
@@ -27,5 +26,8 @@ public:
     GameStatus addStrength(const char* playerName, int strengthToAdd);
     friend ostream& operator<<(ostream& os, const Game& game);
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17e134f0dbd3d0b80d44ac565c759fc44edb19c4
 #endif //HW4_GAME_H

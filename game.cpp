@@ -1,5 +1,10 @@
 #include "Game.h"
 
+<<<<<<< HEAD
+=======
+#include "game.h"
+
+>>>>>>> 17e134f0dbd3d0b80d44ac565c759fc44edb19c4
 Game::Game(int maxPlayers) {
     this->maxPlayers = maxPlayers;
     this->playersArr = new Player*[maxPlayers];
@@ -11,6 +16,7 @@ Game::~Game() {
     }
     delete[] playersArr;
 }
+<<<<<<< HEAD
 GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
                            Target target, int hit_strength){
     int count = 0;
@@ -85,3 +91,7 @@ ostream& operator<<(ostream& os, const Game& game){
     }
     return os;
 }
+=======
+
+
+>>>>>>> 17e134f0dbd3d0b80d44ac565c759fc44edb19c4
