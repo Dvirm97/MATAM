@@ -25,11 +25,11 @@ public:
     void addStrength(int strengthToAdd);
     bool isAlive() const;
     bool weaponIsWeak(int weaponMinStrength) const;
+    bool operator>(const Player& player);
+    bool operator<(const Player& player);
     bool fight(Player& player);
     void losePoints(int points, int target);
 };
-bool operator>(const Player& player1, const Player& player2);
-bool operator<(const Player& player1, const Player& player2);
 
 
     Player::Player(const char* name, const Weapon& weapon)//, const Weapon& weapon)
@@ -70,12 +70,12 @@ bool Player::isAlive() const {
 bool Player::weaponIsWeak(int weaponMinStrength) const {
     return (this->weapon->getHitStrength() < weaponMinStrength);
 }
-bool Player::operator>(const Player& player1, const Player& player2) {
-    return (strcmp(player1.name, player2.name) > 0);
+bool Player::operator>(const Player& player) {
+    return (strcmp(this->name, player.name) > 0);
 
 }
-bool Player::operator<(const Player& player1, const Player& player2) {
-    return (strcmp(player1.name, player2.name) < 0);
+bool Player::operator<(const Player& player) {
+    return (strcmp(this->name, player.name) < 0);
 }
 bool Player::fight(Player& player) {
     //things
