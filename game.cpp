@@ -1,13 +1,13 @@
 #include "Game.h"
 
-<<<<<<< HEAD
-=======
 #include "game.h"
 
->>>>>>> 17e134f0dbd3d0b80d44ac565c759fc44edb19c4
 Game::Game(int maxPlayers) {
     this->maxPlayers = maxPlayers;
     this->playersArr = new Player*[maxPlayers];
+    for (int i=0; i < maxPlayers; i++) {
+        playersArr[i] = nullptr;
+    }
 }
 Game::~Game() {
     for (int i=0; i < maxPlayers; i++) {
@@ -16,9 +16,8 @@ Game::~Game() {
     }
     delete[] playersArr;
 }
-<<<<<<< HEAD
 GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
-                           Target target, int hit_strength){
+                                   Target target, int hit_strength){
     int count = 0;
     while(this->playersArr[count]){
         if((*this->playersArr[count]).isPlayer(playerName)) {
@@ -29,7 +28,7 @@ GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
 
     if(count >= this->maxPlayers) return GAME_FULL;
 
-    *this->playersArr[count] = {playerName, {weaponName, target, hit_strength}};
+    *(this->playersArr[count]) = {playerName, {weaponName, target, hit_strength}};
 
     // sort players array
     for(int i = 0; i <= count; i++) {
@@ -86,12 +85,18 @@ GameStatus Game::addStrength(const char* playerName, int strengthToAdd){
 ostream& operator<<(ostream& os, const Game& game){
     int i = 0;
     while(game.playersArr[i]){
-        //os << "player " << i << ": " << *(game.playersArr[i]) << endl;
+        os << "player " << i << ": " << *(game.playersArr[i]) << endl;
         i++;
     }
     return os;
 }
-=======
-
-
->>>>>>> 17e134f0dbd3d0b80d44ac565c759fc44edb19c4
+bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
+    bool removed = false;
+    for (int i=0; i < maxPlayers; i++) {
+        if(playersArr[i]->weaponIsWeak(weaponStrength)) {
+            delete playersArr[i];
+            removed = true;
+        }
+    }
+    return removed;
+}
