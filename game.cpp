@@ -92,7 +92,7 @@ ostream& operator<<(ostream& os, const Game& game){
 bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
     bool removed = false;
     for (int i=0; i < maxPlayers; i++) {
-        if(playersArr[i]->weaponIsWeak(weaponStrength)) {
+        if(playersArr[i] && playersArr[i]->weaponIsWeak(weaponStrength)) {
             delete playersArr[i];
             removed = true;
         }
