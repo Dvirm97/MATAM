@@ -16,23 +16,26 @@ Game::~Game() {
 }
 GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
                                    Target target, int hit_strength){
-    int count = 0;
-    while(this->playersArr[count]){
-        if((*this->playersArr[count]).isPlayer(playerName)) {
+    int players_num = maxPlayers;
+    for(int i = 0; i < maxPlayers; i++){
+        if(playersArr[i] == nullptr){
+            players_num = i;
+            break;
+        }
+        if((*playersArr[i]).isPlayer(playerName)) {
             return NAME_ALREADY_EXISTS;
         }
-        count++;
     }
 
-    if(count >= this->maxPlayers) return GAME_FULL;
+    if(players_num >= maxPlayers) return GAME_FULL;
 
      Weapon weapon = {weaponName, target, hit_strength};
-     this->playersArr[count] = new Player{playerName, weapon};
+     playersArr[players_num] = new Player{playerName, weapon};
     
     // sort players array
-    for(int i = 0; i <= count; i++) {
+    for(int i = 0; i <= players_num; i++) {
         int min = i;
-        for (int j = i; j <= count; j++) {
+        for (int j = i; j <= players_num; j++) {
             if (*playersArr[j] < *playersArr[min]){
                 min = j;
             }
