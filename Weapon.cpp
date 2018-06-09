@@ -25,8 +25,9 @@ Weapon::~Weapon(){
 */
 int Weapon::getValue() const{
     if(target == LEVEL) return 1 * hitStrength;
-    if(target == STRENGTH) return 2 * hitStrength;
-    if(target == LIFE) return 3 * hitStrength;
+    else if(target == STRENGTH) return 2 * hitStrength;
+    else if(target == LIFE) return 3 * hitStrength;
+    return 0;
 }
 bool Weapon::operator==(const Weapon& weapon) const {
     return getValue() == weapon.getValue();
