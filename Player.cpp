@@ -28,7 +28,7 @@ void Player::nextLevel() {
     this->level++;
 }
 bool Player::isPlayer(const char* playerName) const {
-    return ((bool)strcmp(playerName, this->name)); //hope this is right
+    return strcmp(playerName, this->name) == 0; //hope this is right
 }
 void Player::makeStep() {
     this->tile++;
