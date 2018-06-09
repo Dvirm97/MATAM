@@ -17,7 +17,8 @@ class Player {
 
 public:
     Player(const char* name, const Weapon& weapon);
-    ~Player();
+    ~Player() = default;
+    friend ostream& operator<<(ostream& os, const Player& player);
     void nextLevel();
     bool isPlayer(const char* playerName) const;
     void makeStep();
@@ -28,6 +29,7 @@ public:
     bool operator>(const Player& player);
     bool operator<(const Player& player);
     bool fight(Player& player);
+private :
     void losePoints(int points, int target);
 };
 
