@@ -7,7 +7,7 @@
 
 class Game {
     int maxPlayers;
-    Player* playersArr[];
+    Player** playersArr;
 public:
     explicit Game(int maxPlayers);
     ~Game();
@@ -20,7 +20,7 @@ Game::Game(int maxPlayers) {
 Game::~Game() {
     for (int i=0; i < maxPlayers; i++) {
         if (playersArr[i])
-            delete *(playersArr[i]);
+            delete (playersArr[i]);
     }
     delete[] playersArr;
 }
