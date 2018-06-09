@@ -26,8 +26,9 @@ GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
 
     if(count >= this->maxPlayers) return GAME_FULL;
 
-    *(this->playersArr[count]) = {playerName, {weaponName, target, hit_strength}};
-
+     Weapon weapon = {weaponName, target, hit_strength};
+     this->playersArr[count] = new Player{playerName, weapon};
+    
     // sort players array
     for(int i = 0; i <= count; i++) {
         int min = i;
