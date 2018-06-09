@@ -58,11 +58,11 @@ bool Player::operator<(const Player& player) {
 bool Player::fight(Player& player) {
     //things
     if (this->tile != player.tile
-        || this->weapon == player.weapon)
+        || *(this->weapon) == *(player.weapon))
         return false;
     int target; //or maybe TARGET (enum)?
     int points;
-    if (this->weapon > player.weapon) {
+    if (*(this->weapon) > *(player.weapon)) {
         target = this->weapon->getTarget();
         points = this->weapon->getHitStrength();
         player.losePoints(points, target);
