@@ -96,7 +96,9 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
     bool removed = false;
     for (int i=0; i < maxPlayers; i++) {
         if(playersArr[i] && playersArr[i]->weaponIsWeak(weaponStrength)) {
+            //cout << *(playersArr[i]) << endl;
             delete playersArr[i];
+            playersArr[i] = nullptr;
             removed = true;
         }
     }
