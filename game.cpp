@@ -1,7 +1,5 @@
 #include "Game.h"
 
-#include "game.h"
-
 Game::Game(int maxPlayers) {
     this->maxPlayers = maxPlayers;
     this->playersArr = new Player*[maxPlayers];
