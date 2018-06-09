@@ -14,9 +14,15 @@ Player::Player(const char* name, const Weapon& weapon)//, const Weapon& weapon)
     this->strength = 1;
     this->tile = 0;
 }
+/*
 Player::~Player() {
-    delete[] this->name;
-    delete this->weapon;
+    delete[] name;
+    delete weapon;
+}
+ */
+ostream& operator<<(ostream& os, const Player& player){
+    string str = string("{player name: ") + player.name + ", weapon: ";
+    return os << str << *(player.weapon) << "}";
 }
 void Player::nextLevel() {
     this->level++;
