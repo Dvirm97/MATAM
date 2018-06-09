@@ -1,3 +1,0 @@
-/cygdrive/c/Users/shani/CLionProjects/h3-dry1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/cygdrive/c/Users/shani/CLionProjects/h3-dry1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/cygdrive/c/Users/shani/CLionProjects/h3-dry1/cmake-build-debug/CMakeFiles/h3_dry1.dir
