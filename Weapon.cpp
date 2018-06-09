@@ -1,9 +1,4 @@
-//
-// Created by user on 09-Jun-18.
-//
-#include "Weapon.h"
-
-//using namespace std;
+#include "weapon.h"
 
 Weapon::Weapon(const char* name, Target target, int hit_strength){
     this->name = new char[strlen(name)];
@@ -18,11 +13,7 @@ Target Weapon::getTarget() const {
 int Weapon::getHitStrength() const {
     return hitStrength;
 }
-/*
-Weapon::~Weapon(){
-    delete[] name;
-}
-*/
+
 int Weapon::getValue() const{
     if(target == LEVEL) return 1 * hitStrength;
     if(target == STRENGTH) return 2 * hitStrength;
@@ -42,7 +33,6 @@ bool Weapon::operator<(const Weapon& weapon) const {
 }
 
 ostream& operator<<(ostream& os, const Weapon& weapon){
-    string str = string("{weapon name: ") + weapon.name + ", weapon value: ";
-    return os << str << weapon.getValue() << "}";
+    return os << "{weapon name: " << weapon.name << ", weapon value: " <<
+              weapon.getValue() << "}";
 }
-
