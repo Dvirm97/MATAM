@@ -85,10 +85,11 @@ GameStatus Game::addStrength(const char* playerName, int strengthToAdd){
     return NAME_DOES_NOT_EXIST;
 }
 ostream& operator<<(ostream& os, const Game& game){
-    int i = 0;
-    while(game.playersArr[i]){
+    for(int i = 0; i < game.maxPlayers; i++){
+        if(game.playersArr[i] == nullptr){
+            break;
+        }
         os << "player " << i << ": " << *(game.playersArr[i]) << endl;
-        i++;
     }
     return os;
 }
