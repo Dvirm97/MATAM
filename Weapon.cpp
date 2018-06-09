@@ -18,11 +18,11 @@ Target Weapon::getTarget() const {
 int Weapon::getHitStrength() const {
     return hitStrength;
 }
-
+/*
 Weapon::~Weapon(){
     delete[] name;
 }
-
+*/
 int Weapon::getValue() const{
     if(target == LEVEL) return 1 * hitStrength;
     if(target == STRENGTH) return 2 * hitStrength;
@@ -42,7 +42,7 @@ bool Weapon::operator<(const Weapon& weapon) const {
 }
 
 ostream& operator<<(ostream& os, const Weapon& weapon){
-    string str = string("{weapon name:") + weapon.name + ",weapon value:";
+    string str = string("{weapon name: ") + weapon.name + ", weapon value: ";
     return os << str << weapon.getValue() << "}";
 }
 
