@@ -29,9 +29,4 @@ public:
     bool operator<(const Weapon& weapon) const;
     friend ostream& operator<<(ostream& os, const Weapon& weapon);
 };
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 17e134f0dbd3d0b80d44ac565c759fc44edb19c4
 #endif //HW4_WEAPON_H
