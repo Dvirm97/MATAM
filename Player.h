@@ -2,6 +2,7 @@
 // Created by user on 08-Jun-18.
 //
 #include <cstring>
+#include "Weapon.h"
 #ifndef HW4_PLAYER_H
 #define HW4_PLAYER_H
 
@@ -11,7 +12,7 @@ class Player {
     int level;
     int life;
     int strength;
-    Weapon weapon;
+    Weapon* weapon; //not sure
     int tile;
 
 public:
@@ -31,12 +32,11 @@ bool operator>(const Player& player1, const Player& player2);
 bool operator<(const Player& player1, const Player& player2);
 
 
-    Player::Player(const char* name, Weapon& weapon)//, const Weapon& weapon)
+    Player::Player(const char* name, const Weapon& weapon)//, const Weapon& weapon)
     {
         this->name = new char[strlen(name)]; //should I not enter size?
         strcpy(this->name, name);
-        this->Weapon = new Weapon;
-        this->weapon = weapon;
+        this->weapon = new Weapon(weapon); //hope this is okay
         this->level = 1;
         this->life = 1;
         this->strength = 1;
@@ -68,14 +68,14 @@ bool Player::isAlive() const {
 
 }
 bool Player::weaponIsWeak(int weaponMinStrength) const {
-    return (this->weapon < weaponMinStrength);
+    return (this->weapon->getHitStrength() < weaponMinStrength);
 }
 bool Player::operator>(const Player& player1, const Player& player2) {
-    return (strcmp(player1->name, player2->name) > 0);
+    return (strcmp(player1.name, player2.name) > 0);
 
 }
 bool Player::operator<(const Player& player1, const Player& player2) {
-    return (strcmp(player1->name, player2->name) < 0);
+    return (strcmp(player1.name, player2.name) < 0);
 }
 bool Player::fight(Player& player) {
     //things
@@ -85,33 +85,33 @@ bool Player::fight(Player& player) {
     int target; //or maybe TARGET (enum)?
     int points;
     if (this->weapon > player.weapon) {
-        target = this->weapon.getTarget();
-        points = this->weapon.getHitStrength();
+        target = this->weapon->getTarget();
+        points = this->weapon->getHitStrength();
         player.losePoints(points, target);
     }
     else {
-        target = player.weapon.getTarget();
-        points = player.weapon.getHitStrength();
+        target = player.weapon->getTarget();
+        points = player.weapon->getHitStrength();
         this->losePoints(points, target); //really?
     }
     return true;
 }
 void Player::losePoints(int points, int target) {
-    if (target == 0) { //0 == LEVEL
+    if (target == LEVEL) { //0 == LEVEL
         if (level - points < 0)
             level = 0;
         else
             level -= points;
         return;
     }
-    if (target == 1) { //1 == STRENGTH
+    if (target == STRENGTH) { //1 == STRENGTH
         if (strength - points < 0)
             strength = 0;
         else
             strength -= points;
         return;
     }
-    if (target == 2) { //2 == LIFE
+    if (target == LIFE) { //2 == LIFE
         if (life - points < 0)
             life = 0;
         else
