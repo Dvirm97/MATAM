@@ -26,5 +26,10 @@ public:
     GameStatus addStrength(const char* playerName, int strengthToAdd);
     friend ostream& operator<<(ostream& os, const Game& game);
     bool removeAllPlayersWithWeakWeapon(int weaponStrength);
+    GameStatus fight(const char* playerName1, const char* playerName2);
+
+private:
+    Player* findPlayer(const char* playerName);
+    void removePlayer(const char* playerName);
 };
 #endif //HW4_GAME_H
