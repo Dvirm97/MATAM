@@ -25,7 +25,6 @@ GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
     }
 
     // find empty spot in array for player
-                           Target target, int hit_strength){
     int players_num = maxPlayers;
     for(int i = 0; i < maxPlayers; i++){
         if(playersArr[i] == nullptr){
@@ -40,21 +39,6 @@ GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
     // add new player to array
      Weapon weapon = {weaponName, target, hit_strength};
      playersArr[players_num] = new Player{playerName, weapon};
-    Weapon weapon = {weaponName, target, hit_strength};
-    playersArr[players_num] = new Player{playerName, weapon};
-
-    // sort players array
-    for(int i = 0; i <= players_num; i++) {
-        int min = i;
-        for (int j = i; j <= players_num; j++) {
-            if (*playersArr[j] < *playersArr[min]){
-                min = j;
-            }
-        }
-        Player tmp_player = *playersArr[i];
-        *playersArr[i] = *playersArr[min];
-        *playersArr[min] = tmp_player;
-    }
 
     return SUCCESS;
 }
