@@ -16,34 +16,29 @@ Game::~Game() {
 }
 GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
                                    Target target, int hit_strength){
+    // check if player already exists
+    for(int i = 0; i < maxPlayers; i++){
+        if((playersArr[i] != nullptr) && (*playersArr[i]).isPlayer(playerName))
+        {
+            return NAME_ALREADY_EXISTS;
+        }
+    }
+
+    // find empty spot in array for player
     int players_num = maxPlayers;
     for(int i = 0; i < maxPlayers; i++){
         if(playersArr[i] == nullptr){
             players_num = i;
             break;
         }
-        if((*playersArr[i]).isPlayer(playerName)) {
-            return NAME_ALREADY_EXISTS;
-        }
     }
 
+    // if there is no spot for player in array return game full
     if(players_num >= maxPlayers) return GAME_FULL;
 
+    // add new player to array
      Weapon weapon = {weaponName, target, hit_strength};
      playersArr[players_num] = new Player{playerName, weapon};
-    
-    // sort players array
-    for(int i = 0; i <= players_num; i++) {
-        int min = i;
-        for (int j = i; j <= players_num; j++) {
-            if (*playersArr[j] < *playersArr[min]){
-                min = j;
-            }
-        }
-        Player tmp_player = *playersArr[i];
-        *playersArr[i] = *playersArr[min];
-        *playersArr[min] = tmp_player;
-    }
 
     return SUCCESS;
 }
@@ -85,10 +80,37 @@ GameStatus Game::addStrength(const char* playerName, int strengthToAdd){
     return NAME_DOES_NOT_EXIST;
 }
 ostream& operator<<(ostream& os, const Game& game){
-    int i = 0;
-    while(game.playersArr[i]){
+    // delete spaces in array
+    for(int i = 0; i < game.maxPlayers; i++) {
+        if(!game.playersArr[i]) {
+            int j = i;
+            while (!game.playersArr[j] && j < game.maxPlayers) {
+                j++;
+            }
+            game.playersArr[i] = game.playersArr[j];
+            game.playersArr[j] = nullptr;
+        }
+    }
+
+    // sort players array
+    for(int i = 0; i < game.maxPlayers && game.playersArr[i]; i++) {
+        int min = i;
+        for (int j = i; j < game.maxPlayers && game.playersArr[i] ; j++) {
+            if (*game.playersArr[j] < *game.playersArr[min]){
+                min = j;
+            }
+        }
+        Player* tmp_player = game.playersArr[min];
+        game.playersArr[min] = game.playersArr[i];
+        game.playersArr[i] = tmp_player;
+    }
+
+    // print sorted array
+    for(int i = 0; i < game.maxPlayers; i++){
+        if(game.playersArr[i] == nullptr){
+            break;
+        }
         os << "player " << i << ": " << *(game.playersArr[i]) << endl;
-        i++;
     }
     return os;
 }
@@ -96,9 +118,7 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
     bool removed = false;
     for (int i=0; i < maxPlayers; i++) {
         if(playersArr[i] && playersArr[i]->weaponIsWeak(weaponStrength)) {
-            //cout << *(playersArr[i]) << endl;
             delete playersArr[i];
-            playersArr[i] = nullptr;
             removed = true;
         }
     }

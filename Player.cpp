@@ -21,8 +21,8 @@ Player::~Player() {
 }
  */
 ostream& operator<<(ostream& os, const Player& player){
-    string str = string("{player name: ") + player.name + ", weapon: ";
-    return os << str << *(player.weapon) << "}";
+    return os << "{player name: " << player.name << ", weapon: " <<
+              player.weapon << "}";
 }
 void Player::nextLevel() {
     this->level++;
