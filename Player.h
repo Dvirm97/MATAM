@@ -30,7 +30,7 @@ public:
     bool operator<(const Player& player);
     bool fight(Player& player);
 private :
-    void losePoints(int points, int target);
+    void losePoints(int points, Target target);
 };
 
 
