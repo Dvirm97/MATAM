@@ -28,7 +28,7 @@ void Player::nextLevel() {
     this->level++;
 }
 bool Player::isPlayer(const char* playerName) const {
-    return strcmp(playerName, this->name) == 0; //hope this is right
+    return (strcmp(playerName, this->name) == 0);
 }
 void Player::makeStep() {
     this->tile++;
@@ -46,7 +46,7 @@ bool Player::isAlive() const {
 
 }
 bool Player::weaponIsWeak(int weaponMinStrength) const {
-    return (this->weapon->getHitStrength() < weaponMinStrength);
+    return (this->weapon->getValue() < weaponMinStrength);
 }
 bool Player::operator>(const Player& player) {
     return (strcmp(this->name, player.name) > 0);
@@ -58,7 +58,7 @@ bool Player::operator<(const Player& player) {
 bool Player::fight(Player& player) {
     //things
     if (this->tile != player.tile
-        || this->weapon == player.weapon)
+        || *(this->weapon) == *(player.weapon))
         return false;
     int target; //or maybe TARGET (enum)?
     int points;
