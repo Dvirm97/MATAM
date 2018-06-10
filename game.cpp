@@ -9,13 +9,13 @@ Game::Game(int maxPlayers) {
 }
 Game::~Game() {
     for (int i=0; i < maxPlayers; i++) {
-        if (playersArr[i])
-            delete (playersArr[i]);
+        if (playersArr[i] != nullptr)
+            delete playersArr[i];
     }
     delete[] playersArr;
 }
 GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
-                                   Target target, int hit_strength){
+                           Target target, int hit_strength){
     int players_num = maxPlayers;
     for(int i = 0; i < maxPlayers; i++){
         if(playersArr[i] == nullptr){
@@ -29,9 +29,9 @@ GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
 
     if(players_num >= maxPlayers) return GAME_FULL;
 
-     Weapon weapon = {weaponName, target, hit_strength};
-     playersArr[players_num] = new Player{playerName, weapon};
-    
+    Weapon weapon = {weaponName, target, hit_strength};
+    playersArr[players_num] = new Player{playerName, weapon};
+
     // sort players array
     for(int i = 0; i <= players_num; i++) {
         int min = i;
@@ -97,11 +97,42 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
     bool removed = false;
     for (int i=0; i < maxPlayers; i++) {
         if(playersArr[i] && playersArr[i]->weaponIsWeak(weaponStrength)) {
-            //cout << *(playersArr[i]) << endl;
+            cout << *(playersArr[i]) << endl;
             delete playersArr[i];
             playersArr[i] = nullptr;
             removed = true;
         }
     }
     return removed;
+}
+GameStatus Game::fight(const char* playerName1, const char* playerName2) {
+    Player* player1 = findPlayer(playerName1);
+    if (player1 == nullptr) return NAME_DOES_NOT_EXIST;
+    Player* player2 = findPlayer(playerName2);
+    if (player2 == nullptr) return NAME_DOES_NOT_EXIST;
+
+    if (!player1->fight(*player2)) return FIGHT_FAILED;
+
+    if(!player1->isAlive())
+        removePlayer(playerName1);
+    if(!player2->isAlive())
+        removePlayer(playerName2);
+    return SUCCESS;
+}
+
+Player* Game::findPlayer(const char* playerName) {
+    for (int i=0; i < maxPlayers; i++) {
+        if (playersArr[i] && playersArr[i]->isPlayer(playerName))
+            return playersArr[i];
+    }
+    return nullptr;
+}
+
+void Game::removePlayer(const char* playerName) {
+    for (int i=0; i < maxPlayers; i++) {
+        if (playersArr[i] && playersArr[i]->isPlayer(playerName)) {
+            delete playersArr[i];
+            playersArr[i] = nullptr;
+        }
+    }
 }
