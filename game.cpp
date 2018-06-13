@@ -71,7 +71,11 @@ GameStatus Game::addPlayer(const char* playerName, const char* weaponName,
 
     // add new player to array
      Weapon weapon = {weaponName, target, hit_strength};
+<<<<<<< HEAD
      players[players_num] = new Player{playerName, weapon};
+=======
+     playersArr[players_num] = new Player{playerName, weapon};
+>>>>>>> b57fd4e96c868650507f24c43fc086468dd5a5c7
 
     return SUCCESS;
 }
@@ -124,10 +128,29 @@ GameStatus Game::addStrength(const char* playerName, int strengthToAdd){
 }
 // overload printing operator
 ostream& operator<<(ostream& os, const Game& game){
+<<<<<<< HEAD
+=======
+    // delete spaces in array
+    for(int i = 0; i < game.maxPlayers; i++) {
+        if(!game.playersArr[i]) {
+            int j = i;
+            while (!game.playersArr[j] && j < game.maxPlayers) {
+                j++;
+            }
+            game.playersArr[i] = game.playersArr[j];
+            game.playersArr[j] = nullptr;
+        }
+    }
+
+>>>>>>> b57fd4e96c868650507f24c43fc086468dd5a5c7
     // sort players array
     game.sortPlayers();
 
+<<<<<<< HEAD
     // print all players in sorted array
+=======
+    // print sorted array
+>>>>>>> b57fd4e96c868650507f24c43fc086468dd5a5c7
     for(int i = 0; i < game.maxPlayers; i++){
         if(game.players[i] == nullptr){
             break;
@@ -141,6 +164,7 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
 
     // go through all players in array
     for (int i=0; i < maxPlayers; i++) {
+<<<<<<< HEAD
 
         // check if player's weapon is weak
         if(players[i] && players[i]->weaponIsWeak(weaponStrength)) {
@@ -149,6 +173,12 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
             delete players[i];
             players[i] = nullptr;
             removed = true; // update that a player was removed
+=======
+        if(playersArr[i] && playersArr[i]->weaponIsWeak(weaponStrength)) {
+            cout << *(playersArr[i]) << endl;
+            delete playersArr[i];
+            removed = true;
+>>>>>>> b57fd4e96c868650507f24c43fc086468dd5a5c7
         }
     }
 
