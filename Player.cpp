@@ -1,25 +1,50 @@
-//
-// Created by user on 08-Jun-18.
-//
+/**
+ * class Player
+ */
 
 #include "Player.h"
 
-Player::Player(const char* name, const Weapon& weapon)//, const Weapon& weapon)
-{
-    this->name = new char[strlen(name)]; //should I not enter size?
-    strcpy(this->name, name);
-    this->weapon = new Weapon(weapon); //hope this is okay
-    this->level = 1;
-    this->life = 1;
-    this->strength = 1;
-    this->tile = 0;
+// Constructor
+Player::Player(const char* name, const Weapon& weapon):
+   weapon(weapon), level(1), life(1), strength(1), tile(0) {
+    // copy name
+   this->name = new char[strlen(name)+1];
+   strcpy(this->name, name);
 }
-/*
+// Destructor
 Player::~Player() {
-    delete[] name;
-    delete weapon;
+    delete[] name;  // delete name
 }
- */
+// Copy Constructor
+Player::Player(const Player& player):
+        weapon(player.weapon), level(player.level), life(player.life),
+        strength(player.strength), tile(player.tile) {
+    // copy name
+    this->name = new char[strlen(player.name)+1];
+    strcpy(this->name, player.name);
+}
+// operator '=' overloading
+Player& Player::operator=(const Player& player)
+{
+    // check if already equal
+    if (this == &player) return *this;
+
+    // delete previouse content
+    delete[] name;
+
+    // copy new content
+    this->name = new char[strlen(player.name)+1];
+    strcpy(this->name, player.name);
+    this->weapon = player.weapon;
+    this->level = player.level;
+    this->life = player.life;
+    this->strength = player.strength;
+    this->tile = player.tile;
+
+    // return player with new info
+    return *this;
+}
+// printing operator overlaoding
 ostream& operator<<(ostream& os, const Player& player){
     return os << "{player name: " << player.name << ", weapon: " <<
               player.weapon << "}";
@@ -28,7 +53,7 @@ void Player::nextLevel() {
     this->level++;
 }
 bool Player::isPlayer(const char* playerName) const {
-    return (strcmp(playerName, this->name) == 0);
+    return strcmp(playerName, name) == 0; // compare names
 }
 void Player::makeStep() {
     this->tile++;
@@ -40,60 +65,60 @@ void Player::addStrength(int strengthToAdd) {
     this->strength += strengthToAdd;
 }
 bool Player::isAlive() const {
-    return (this->level > 0
-            && this->strength > 0
-            && this->life > 0);
-
+    return (this->level > 0 && this->strength > 0 && this->life > 0);
 }
 bool Player::weaponIsWeak(int weaponMinStrength) const {
-    return (this->weapon->getValue() < weaponMinStrength);
+    return (weapon.getValue() < weaponMinStrength);
 }
 bool Player::operator>(const Player& player) {
-    return (strcmp(this->name, player.name) > 0);
-
+    return strcmp(name, player.name) > 0; // compare strings
 }
 bool Player::operator<(const Player& player) {
-    return (strcmp(this->name, player.name) < 0);
+    return strcmp(name, player.name) < 0; // compare strings
 }
 bool Player::fight(Player& player) {
-    //things
-    if (this->tile != player.tile
-        || *(this->weapon) == *(player.weapon))
+    // check if can fight
+    if (this->tile != player.tile || this->weapon == player.weapon) {
         return false;
-    Target target; //or maybe TARGET (enum)?
-    int points;
-    if (*(this->weapon) > *(player.weapon)) {
-        target = this->weapon->getTarget();
-        points = this->weapon->getHitStrength();
+    }
+    // define variables
+    int target, points;
+
+    // update info for losing player
+    if (this->weapon > player.weapon) {
+        target = this->weapon.getTarget();
+        points = this->weapon.getHitStrength();
         player.losePoints(points, target);
     }
     else {
-        target = player.weapon->getTarget();
-        points = player.weapon->getHitStrength();
-        this->losePoints(points, target); //really?
+        target = player.weapon.getTarget();
+        points = player.weapon.getHitStrength();
+        this->losePoints(points, target);
     }
+
     return true;
 }
-void Player::losePoints(int points, Target target) {
-    if (target == LEVEL) { 
-        if (level - points < 0)
-            level = 0;
-        else
+void Player::losePoints(int points, int target) {
+    switch (target) {
+        case LEVEL:
             level -= points;
-        return;
-    }
-    if (target == STRENGTH) {
-        if (strength - points < 0)
-            strength = 0;
-        else
+            if (level < 0) {
+                level = 0;
+            }
+            break;
+        case STRENGTH:
             strength -= points;
-        return;
-    }
-    if (target == LIFE) {
-        if (life - points < 0)
-            life = 0;
-        else
+            if (strength < 0) {
+                strength = 0;
+            }
+            break;
+        case LIFE:
             life -= points;
-        return;
+            if (life < 0) {
+                life = 0;
+            }
+            break;
+        default:
+            return;
     }
 }
