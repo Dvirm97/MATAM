@@ -110,7 +110,6 @@ public:
    *         false - players were not removed.
    */
     bool removeAllPlayersWithWeakWeapon(int weaponStrength);
-<<<<<<< HEAD
 
     /**
    * fight: makes a fight between two players and removes a player if died.
@@ -146,12 +145,5 @@ private:
    *                  pushes all of the null pointers to the end of the array.
    */
     bool condensePlayers() const;
-=======
-    GameStatus fight(const char* playerName1, const char* playerName2);
-
-private:
-    Player* findPlayer(const char* playerName);
-    void removePlayer(const char* playerName);
->>>>>>> b57fd4e96c868650507f24c43fc086468dd5a5c7
 };
 #endif //HW4_GAME_H
