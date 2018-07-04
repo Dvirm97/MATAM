@@ -1,32 +1,40 @@
 //
 // Created by user on 08-Jun-18.
 //
-#include <cstring>
+#include <string>
+#include <iostream>
 #include "Weapon.h"
 #ifndef HW4_PLAYER_H
 #define HW4_PLAYER_H
 
-
+using std::ostream;
+using std::ofstream;
+using std::iostream;
+using std::cout;
+using std::endl;
+using std::string;
 class Player {
-    char* name;
+protected:
+    string name;
     Weapon weapon;
     int level;
     int life;
     int strength;
     int tile;
 
-public:
     /**
     * Constructor:   creates a new player
-    * @param name - The name of the player. type const char*
+    * @param name - The name of the player. type const string
     * @param weapon - The weapon of the player. type Weapon&
     */
-    Player(const char* name, const Weapon& weapon);
+    Player(const string& name, const Weapon& weapon);
+
+public:
 
    /**
    * Destructor:  destroys the player.
    */
-    ~Player();
+    ~Player() = default;
 
    /**
    * Copy Constructor: copies a player
@@ -49,10 +57,10 @@ public:
     *         false - first player's name is not earlier in the ABC than the
     *                 second player
     */
-    bool operator>(const Player& player);
+    bool operator>(const Player& player) const;
 
     /**
-    * Opertor >: overloads the operator '>' for type player.
+    * Opertor <: overloads the operator '<' for type player.
     *               Compares player by name.
     * @param player - player to compare. type const Player&
     * return: true - first player's name is later in the ABC than the
@@ -70,27 +78,26 @@ public:
 
     /**
     * isPlayer: checks if the player has a certain name
-    * @param playerName - name to check. type const char*
+    * @param playerName - name to check. type const string
     * return: true - the player's name is equal to playerName
     *         false - the player's name is not equal to playerName
     */
-    bool isPlayer(const char* playerName) const;
+    bool isPlayer(const string playerName) const;
 
     /**
     * nextLevel: bring player one level up
-    * @param playerName - name to check. type const char*
     */
     void nextLevel();
 
     /**
     * makeStep: bring player one step forward
     */
-    void makeStep();
+    virtual void makeStep();
 
     /**
     * addLife: add life to player
     */
-    void addLife();
+    virtual void addLife();
 
     /**
     * addStrength: add strength to player
@@ -111,9 +118,9 @@ public:
     *               value.
     * @param weaponMinStrength - the minimum value a weapon hit value can be.
     *                              Of type int.
-    * return: true - the player's weapon hit value is equal is not under the
+    * return: true - the player's weapon hit value is under the
     *                  minimum strength.
-    *         false - the player's weapon hit value is equal is under the
+    *         false - the player's weapon hit value is equal or above the
     *                  minimum strength.
     */
     bool weaponIsWeak(int weaponMinStrength) const;
@@ -124,20 +131,35 @@ public:
    * @param player - player to fight with. of type Player&
    * return: true - the players can fight(they are in the same spot and
    *                have weapons of different hit value).
-   *         false - the players can't fight(they are nont in the same spot or
+   *         false - the players can't fight(they are not in the same spot or
    *                have weapons of same hit value).
    */
     bool fight(Player& player);
 
-private :
+protected:
     /**
-   * losePoints: changes strength, level of life for player.
-   *             if target is negative make it 0.
+   * canAttack: checks whether our player can attack some other player.
+   * a protected function.
+   * @param player - the player that we check whether our player can attack.
+   */
+    virtual bool canAttack(Player const& player) const;
+    /**
+    * distance: calculates the tile difference between two players.
+    * @param player1 - one player.
+    * @param player2 - another player.
+    */
+    static int distance(Player const& player1, Player const& player2);
+private:
+    /**
+   * losePoints: reduces strength, level or life for player.
+   *             if target is negative after reduction, make it 0.
+   * A private function.
    * @param points - the amount of points lost. type int
-   * @param target - what is the target losing points. type Target (enum)
+   * @param target - which target is losing points. type Target (enum)
    */
     void losePoints(int points, int target);
 };
 
 
 #endif //HW4_PLAYER_H
+

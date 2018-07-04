@@ -3,25 +3,27 @@
  */
 
 #include "Player.h"
+#include <cstring> //should be <string>
+//using std::string;
 
 // Constructor
-Player::Player(const char* name, const Weapon& weapon):
+Player::Player(const string& name, const Weapon& weapon):
    weapon(weapon), level(1), life(1), strength(1), tile(0) {
     // copy name
-   this->name = new char[strlen(name)+1];
-   strcpy(this->name, name);
+   this->name = name;
 }
+/*
 // Destructor
 Player::~Player() {
     delete[] name;  // delete name
 }
-// Copy Constructor
+*/
+//Copy Constructor
 Player::Player(const Player& player):
         weapon(player.weapon), level(player.level), life(player.life),
         strength(player.strength), tile(player.tile) {
     // copy name
-    this->name = new char[strlen(player.name)+1];
-    strcpy(this->name, player.name);
+    this->name = player.name;
 }
 // operator '=' overloading
 Player& Player::operator=(const Player& player)
@@ -29,12 +31,8 @@ Player& Player::operator=(const Player& player)
     // check if already equal
     if (this == &player) return *this;
 
-    // delete previouse content
-    delete[] name;
-
     // copy new content
-    this->name = new char[strlen(player.name)+1];
-    strcpy(this->name, player.name);
+    this->name = player.name;
     this->weapon = player.weapon;
     this->level = player.level;
     this->life = player.life;
@@ -52,8 +50,8 @@ ostream& operator<<(ostream& os, const Player& player){
 void Player::nextLevel() {
     this->level++;
 }
-bool Player::isPlayer(const char* playerName) const {
-    return strcmp(playerName, name) == 0; // compare names
+bool Player::isPlayer(const string playerName) const {
+    return (playerName == name); // compare names
 }
 void Player::makeStep() {
     this->tile++;
@@ -70,33 +68,26 @@ bool Player::isAlive() const {
 bool Player::weaponIsWeak(int weaponMinStrength) const {
     return (weapon.getValue() < weaponMinStrength);
 }
-bool Player::operator>(const Player& player) {
-    return strcmp(name, player.name) > 0; // compare strings
+bool Player::operator>(const Player& player) const {
+    return this->name > player.name; // compare strings
 }
 bool Player::operator<(const Player& player) {
-    return strcmp(name, player.name) < 0; // compare strings
+    return this->name < player.name; // compare strings
 }
 bool Player::fight(Player& player) {
-    // check if can fight
-    if (this->tile != player.tile || this->weapon == player.weapon) {
-        return false;
-    }
-    // define variables
-    int target, points;
-
-    // update info for losing player
-    if (this->weapon > player.weapon) {
-        target = this->weapon.getTarget();
-        points = this->weapon.getHitStrength();
+    if (this->canAttack(player)) {
+        int target = this->weapon.getTarget();
+        int points = this->weapon.getHitStrength();
         player.losePoints(points, target);
+        return true;
     }
-    else {
-        target = player.weapon.getTarget();
-        points = player.weapon.getHitStrength();
+    if (player.canAttack(*this)) {
+        int target = player.weapon.getTarget();
+        int points = player.weapon.getHitStrength();
         this->losePoints(points, target);
+        return true;
     }
-
-    return true;
+    return false;
 }
 void Player::losePoints(int points, int target) {
     switch (target) {
@@ -121,4 +112,14 @@ void Player::losePoints(int points, int target) {
         default:
             return;
     }
+}
+
+bool Player::canAttack(Player const& player) const {
+    return (this->tile == player.tile
+            && this->weapon > player.weapon);
+}
+
+int Player::distance(Player const& player1, Player const& player2) {
+    int difference = player1.tile - player2.tile;
+    return (difference < 0 ? -difference : difference);
 }

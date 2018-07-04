@@ -4,12 +4,13 @@
 
 #ifndef HW4_WEAPON_H
 #define HW4_WEAPON_H
-#include <cstring>
+#include <string>
 #include <iostream>
 #include <ostream>
 
-using namespace std;
-
+using std::string;
+using std::istream;
+using std::ostream;
 enum Target{
     LEVEL,
     STRENGTH,
@@ -17,24 +18,24 @@ enum Target{
 };
 
 class Weapon {
-    char* name;
+    string name;
     Target target;
     int hitStrength;
 
 public:
     /**
     * Constructor:   creates a new weapon
-    * @param name - The name of the weapon. type const char*
+    * @param name - The name of the weapon. type const string
     * @param target - The target the weapon. an enum value of Target
     * @param hit_strength - The basic amount of strength the weapon hits.
     *                       Of type int.
     */
-    Weapon(const char* name, Target target, int hit_strength);
+    Weapon(const string name, Target target, int hit_strength);
 
     /**
     * Destructor:  destroys the weapon.
     */
-    ~Weapon();
+    ~Weapon() = default;
 
     /**
     * Copy Constructor: copies a weapon

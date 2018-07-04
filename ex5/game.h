@@ -1,15 +1,33 @@
-#include "Player.h"
-
 #ifndef HW4_GAME_H
 #define HW4_GAME_H
 
+#include "Player.h"
+#include "Warrior.h"
+#include "Wizard.h"
+#include "Troll.h"
+#include "mtm_exceptions.h"
+
 enum GameStatus{
+    ILLEGAL_WEAPON,
     INVALID_PARAM,
     NAME_ALREADY_EXISTS,
     GAME_FULL,
     NAME_DOES_NOT_EXIST,
     FIGHT_FAILED,
     SUCCESS
+};
+
+// class for object function
+class ifWeakWeapon{
+    int weaponStrength;
+public:
+    // constructor
+    explicit ifWeakWeapon(int weaponStrength) :
+            weaponStrength(weaponStrength) {}
+    // overload () operator
+    bool operator() (Player const& player) const {
+        return player.weaponIsWeak(weaponStrength);
+    }
 };
 
 class Game {
@@ -53,53 +71,100 @@ public:
 
     /**
     * addPlayer:  adds a player to the game
-    * @param playerName - The name of the player. type const char*
-    * @param weaponName - The name of the weapon. type const char*
+    * @param playerName - The name of the player. type const string
+    * @param weaponName - The name of the weapon. type const string
     * @param target - The target the weapon. an enum value of Target
     * @param hit_strength - The basic amount of strength the weapon hits.
     *                       Of type int.
     * return NAME_ALREADY_EXISTS    if name already exists
-    *        GAME_FULL      game reached maximus num of players
+    *        GAME_FULL      game reached maximum num of players
     *        SUCCESS       if added successfully
     */
-    GameStatus addPlayer(const char* playerName, const char* weaponName,
+    GameStatus addPlayer(const string playerName, const string weaponName,
                          Target target, int hit_strength);
 
     /**
+    * addWarrior:  adds to the game a player of type warrior
+    * @param playerName - The name of the player. type const string
+    * @param weaponName - The name of the weapon. type const string
+    * @param target - The target the weapon. an enum value of Target
+    * @param hit_strength - The basic amount of strength the weapon hits.
+    *                       Of type int.
+    * @param rider - determines whether the warrior is mounted or not.
+    *                       Of type bool.
+    * return NAME_ALREADY_EXISTS    if name already exists
+    *        GAME_FULL      game reached maximum num of players
+    *        SUCCESS       if added successfully
+    */
+    void addWarrior(const string playerName, const string weaponName,
+                         Target target, int hit_strength, bool rider);
+
+    /**
+    * addWizard:  adds to the game a player of type wizard
+    * @param playerName - The name of the player. type const string
+    * @param weaponName - The name of the weapon. type const string
+    * @param target - The target the weapon. an enum value of Target
+    * @param hit_strength - The basic amount of strength the weapon hits.
+    *                       Of type int.
+    * @param range - The wizard's attack range. Of type int.
+    * return NAME_ALREADY_EXISTS    if name already exists
+    *        GAME_FULL      game reached maximum num of players
+    *        SUCCESS       if added successfully
+    */
+    void addWizard(const string playerName, const string weaponName,
+                          Target target, int hit_strength, int range);
+
+    /**
+    * addTroll:  adds to the game a player of type troll
+    * @param playerName - The name of the player. type const string
+    * @param weaponName - The name of the weapon. type const string
+    * @param target - The target the weapon. an enum value of Target
+    * @param hit_strength - The basic amount of strength the weapon hits.
+    *                       Of type int.
+    * @param maxLife - The troll's maximum life. Of type int.
+    * return NAME_ALREADY_EXISTS    if name already exists
+    *        GAME_FULL      game reached maximum num of players
+    *        SUCCESS       if added successfully
+    */
+    void addTroll(const string playerName, const string weaponName,
+                          Target target, int hit_strength, int maxLife);
+
+    /**
    * nextLevel:  brings a player level up
-   * @param playerName - The name of the player to level up. type const char*
+   * @param playerName - The name of the player to level up. type const string
    * return NAME_DOES_NOT_EXIST    if name does not exist
    *        SUCCESS       if leveled up successfully
    */
-    GameStatus nextLevel(const char* playerName);
+
+    GameStatus nextLevel(const string playerName);
 
     /**
    * makeStep:  brings a player a step forward
    * @param playerName - The name of the player to step forward.
-   *                    type const char*
+   *                    type const string
    * return NAME_DOES_NOT_EXIST    if name does not exist
    *        SUCCESS       if steped forward successfully
    */
-    GameStatus makeStep(const char* playerName);
+    GameStatus makeStep(const string playerName);
 
     /**
    * addLife: add life to player
-   * @param playerName - The name of the player to add life to. type const char*
+   * @param playerName - The name of the player to add life to. type const string
    * return NAME_DOES_NOT_EXIST    if name does not exist
    *        SUCCESS                if life added successfully
    */
-    GameStatus addLife(const char* playerName);
+    GameStatus addLife(const string playerName);
 
     /**
-  * addStrength: add strength to player
-  * @param playerName - The name of the player to add strength to.
-  *                     type const char*
-  * @param strengthToAdd - sterngth to add to player. type int
-  * return NAME_DOES_NOT_EXIST    if name does not exist
-  *        INVALID_PARAM          if strengthToAdd is negative
-  *        SUCCESS                if life strength successfully
-  */
-    GameStatus addStrength(const char* playerName, int strengthToAdd);
+    * addStrength: add strength to player
+    * @param playerName - The name of the player to add strength to.
+    *                     type const string
+    * @param strengthToAdd - sterngth to add to player. type int
+    * return NAME_DOES_NOT_EXIST    if name does not exist
+    *        INVALID_PARAM          if strengthToAdd is negative
+    *        SUCCESS                if life strength successfully
+    */
+    GameStatus addStrength(const string playerName, int strengthToAdd);
 
     /**
    * removeAllPlayersWithWeakWeapon:  remove from array all players with weapon
@@ -112,38 +177,67 @@ public:
     bool removeAllPlayersWithWeakWeapon(int weaponStrength);
 
     /**
-   * fight: makes a fight between two players and removes a player if died.
-   * @param playerName1 - first player in fight. of type const char*
-   * @param playerName2 - second player in fight. of type const char*
-   * return NAME_DOES_NOT_EXIST    if one of the name does not exist
-   *        FIGHT_FAILED           if two players cannot fight
-   *        SUCCESS                if life strength successfully
-   */
-    GameStatus fight(const char* playerName1, const char* playerName2);
+    * fight: makes a fight between two players and removes a player if died.
+    * @param playerName1 - first player in fight. of type const string
+    * @param playerName2 - second player in fight. of type const string
+    * return NAME_DOES_NOT_EXIST    if one of the name does not exist
+    *        FIGHT_FAILED           if two players cannot fight
+    *        SUCCESS                if life strength successfully
+    */
+    GameStatus fight(const string playerName1, const string playerName2);
+
+
+    /**
+    * removePlayersIf: remove player if object function is true
+    */
+    template <class FCN>
+    bool removePlayersIf(FCN& fcn) {
+        bool removed = false;
+
+        // go through all players in array
+        for (int i=0; i < maxPlayers; i++) {
+            // check if player's weapon is weak
+            if(players[i] && fcn(static_cast<const Player&>(*players[i]))) {
+                // remove player
+                delete players[i];
+                players[i] = nullptr;
+                removed = true; // update that a player was removed
+            }
+        }
+
+        // return if players were removed or not
+        return removed;
+    }
+
+
 
 private:
     /**
     * findPlayer: searches for a player in the array
-    * @param playerName - the player we are searching for. of type const char*
+    * @param playerName - the player we are searching for. of type const string
     * return a pointer to the player or null if the player does not exist
     */
-    Player* findPlayer(const char* playerName);
+    Player* findPlayer(const string& playerName);
 
     /**
     * removePlayer: removes a player from the array
-    * @param playerName - the player we want to remove. of type const char*
+    * @param playerName - the player we want to remove. of type const string
     */
-    void removePlayer(const char* playerName);
+    void removePlayer(const string& playerName);
 
     /**
-    * sortPlayers: sorts the players in the array by lexichographical order
+    * sortPlayers: sorts the players in the array by lexicographical order
     */
     void sortPlayers() const;
 
     /**
-   * condensePlayers: moves all of the players to the begging of the array and
-   *                  pushes all of the null pointers to the end of the array.
-   */
+    * condensePlayers: moves all of the players to the beginning of the array and
+    *                  pushes all of the null pointers to the end of the array.
+    */
     bool condensePlayers() const;
+
 };
+
+
+
 #endif //HW4_GAME_H
