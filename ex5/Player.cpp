@@ -12,12 +12,7 @@ Player::Player(const string& name, const Weapon& weapon):
     // copy name
    this->name = name;
 }
-/*
-// Destructor
-Player::~Player() {
-    delete[] name;  // delete name
-}
-*/
+
 //Copy Constructor
 Player::Player(const Player& player):
         weapon(player.weapon), level(player.level), life(player.life),
