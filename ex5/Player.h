@@ -34,7 +34,7 @@ public:
    /**
    * Destructor:  destroys the player.
    */
-    ~Player() = default;
+    virtual ~Player() = default;
 
    /**
    * Copy Constructor: copies a player
